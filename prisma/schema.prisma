@@ -1,0 +1,412 @@
+// ============================================================================
+//  GhestShop Premium — PostgreSQL Schema (Prisma ORM)
+//  Fintech E-Commerce ecosystem for installment-based digital commodities.
+//  Money is stored as BigInt (Toman, integer — never float) to avoid IEEE-754
+//  rounding errors on financial balances. Dates that the user *sees* in Jalali
+//  are stored as UTC DateTime; conversion to Shamsi happens in the view layer.
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+//  ENUMS
+// ---------------------------------------------------------------------------
+
+enum UserRole {
+  CUSTOMER
+  ACCOUNTANT
+  ADMIN
+}
+
+enum VerificationStatus {
+  UNVERIFIED // No KYC submitted yet
+  PENDING // Documents submitted, awaiting review
+  VERIFIED // KYC + credit approved
+  REJECTED // Failed identity/credit verification
+}
+
+enum ProductCondition {
+  NEW
+  REFURBISHED
+}
+
+enum LoanStep {
+  BASIC_INFO // Personal & employment details
+  CREDIT_CHECK // Income / credit-score evaluation
+  DOCUMENT_UPLOAD // National card + cheque/safteh upload
+  FINAL_REVIEW // Accountant/admin sign-off
+}
+
+enum LoanStatus {
+  DRAFT // User started but not submitted
+  PENDING // Submitted, in the review pipeline
+  APPROVED
+  REJECTED
+  CANCELLED // Withdrawn by the user
+}
+
+enum DocumentType {
+  NATIONAL_CARD_FRONT
+  NATIONAL_CARD_BACK
+  CHEQUE
+  SAFTEH // سفته / promissory note
+  PAYSLIP // فیش حقوقی
+  BANK_STATEMENT
+  OTHER
+}
+
+enum DocumentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PlanStatus {
+  ACTIVE // At least one month still owed
+  COMPLETED // Fully settled
+  DEFAULTED // Sent to collections after sustained overdue
+  CANCELLED
+}
+
+enum InstallmentStatus {
+  UPCOMING // Due date in the future, no slip yet
+  UNPAID // Due/within window, awaiting payment
+  PENDING_REVIEW // Slip uploaded, accountant has not confirmed
+  PAID
+  OVERDUE // Past due date, unpaid
+}
+
+enum SlipStatus {
+  PENDING // Awaiting accountant audit
+  APPROVED
+  REJECTED // Wrong amount / unreadable / duplicate
+}
+
+// ---------------------------------------------------------------------------
+//  USER & AUTH
+// ---------------------------------------------------------------------------
+
+model User {
+  id                 String             @id @default(cuid())
+  phone              String             @unique // Iranian mobile, primary login (E.164: +98...)
+  email              String?            @unique
+  nationalId         String?            @unique @map("national_id") // کد ملی (10 digits)
+  hashedPassword     String?            @map("hashed_password")
+  firstName          String?            @map("first_name")
+  lastName           String?            @map("last_name")
+  role               UserRole           @default(CUSTOMER)
+  verificationStatus VerificationStatus @default(UNVERIFIED) @map("verification_status")
+
+  // Auth metadata
+  phoneVerifiedAt DateTime? @map("phone_verified_at")
+  emailVerifiedAt DateTime? @map("email_verified_at")
+  lastLoginAt     DateTime? @map("last_login_at")
+  isActive        Boolean   @default(true) @map("is_active")
+
+  // Underwriting snapshot
+  creditScore     Int?    @map("credit_score") // 0–1000 internal score
+  monthlyIncome   BigInt? @map("monthly_income") // declared income, Toman
+
+  // Relations
+  sessions         Session[]
+  loanApplications LoanApplication[]
+  installmentPlans InstallmentPlan[]
+  paymentSlips     PaymentSlip[]
+  reviewedSlips    PaymentSlip[]     @relation("SlipReviewer")
+  reviewedDocs     LoanDocument[]    @relation("DocReviewer")
+  cart             CartItem[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([role])
+  @@index([verificationStatus])
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  userAgent String?  @map("user_agent")
+  ipAddress String?  @map("ip_address")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// ---------------------------------------------------------------------------
+//  CATALOG — E-COMMERCE CORE
+// ---------------------------------------------------------------------------
+
+model Category {
+  id       String     @id @default(cuid())
+  name     String
+  slug     String     @unique
+  parentId String?    @map("parent_id")
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+  products Product[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("categories")
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique // Apple, Samsung, Xiaomi ...
+  slug     String    @unique
+  logoUrl  String?   @map("logo_url")
+  products Product[]
+
+  @@map("brands")
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  title       String
+  slug        String  @unique
+  description String? @db.Text
+
+  // Pricing — Toman, integer
+  cashPrice            BigInt @map("cash_price") // absolute cash price
+  installmentMarkupBps Int    @default(0) @map("installment_markup_bps") // base markup over cash, in basis points (e.g. 1800 = 18%)
+  isInstallmentEnabled Boolean @default(true) @map("is_installment_enabled")
+
+  // Inventory
+  stock      Int              @default(0)
+  condition  ProductCondition @default(NEW)
+  isActive   Boolean          @default(true) @map("is_active")
+
+  // Faceted specs
+  brandId    String   @map("brand_id")
+  brand      Brand    @relation(fields: [brandId], references: [id])
+  categoryId String   @map("category_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  images    ProductImage[]
+  variants  ProductVariant[]
+  cartItems CartItem[]
+  loanApplications LoanApplication[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([brandId])
+  @@index([categoryId])
+  @@index([isActive])
+  @@map("products")
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String?
+  position  Int     @default(0)
+
+  @@index([productId])
+  @@map("product_images")
+}
+
+// A concrete buyable SKU: a (color, storage) combination with its own stock/price delta.
+model ProductVariant {
+  id          String  @id @default(cuid())
+  productId   String  @map("product_id")
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku         String  @unique
+  color       String? // مشکی، طلایی ...
+  storageGb   Int?    @map("storage_gb") // 128, 256, 512 ...
+  ramGb       Int?    @map("ram_gb")
+  priceDelta  BigInt  @default(0) @map("price_delta") // +/- against base cashPrice, Toman
+  stock       Int     @default(0)
+
+  cartItems CartItem[]
+
+  @@index([productId])
+  @@map("product_variants")
+}
+
+model CartItem {
+  id        String          @id @default(cuid())
+  userId    String          @map("user_id")
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String          @map("product_id")
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId String?         @map("variant_id")
+  variant   ProductVariant? @relation(fields: [variantId], references: [id])
+  quantity  Int             @default(1)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, productId, variantId])
+  @@index([userId])
+  @@map("cart_items")
+}
+
+// ---------------------------------------------------------------------------
+//  FINTECH CORE — LOAN APPLICATION & UNDERWRITING
+// ---------------------------------------------------------------------------
+
+model LoanApplication {
+  id        String     @id @default(cuid())
+  userId    String     @map("user_id")
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String     @map("product_id")
+  product   Product    @relation(fields: [productId], references: [id])
+
+  currentStep LoanStep   @default(BASIC_INFO) @map("current_step")
+  status      LoanStatus @default(DRAFT)
+
+  // Terms requested by the applicant (snapshot at submission)
+  requestedPrincipal BigInt @map("requested_principal") // financed principal = price - down payment, Toman
+  downPayment        BigInt @map("down_payment") // پیش‌پرداخت, Toman
+  requestedMonths    Int    @map("requested_months") // 6 / 12 / 18 / 24
+  annualRateBps      Int    @map("annual_rate_bps") // nominal annual rate, basis points
+
+  // Review trail
+  rejectionReason String?   @db.Text @map("rejection_reason")
+  reviewedAt      DateTime? @map("reviewed_at")
+  submittedAt     DateTime? @map("submitted_at")
+
+  documents     LoanDocument[]
+  installmentPlan InstallmentPlan?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("loan_applications")
+}
+
+model LoanDocument {
+  id            String          @id @default(cuid())
+  applicationId String          @map("application_id")
+  application   LoanApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  type       DocumentType
+  url        String // storage URL (S3/MinIO/Arvan object storage)
+  fileName   String         @map("file_name")
+  fileSize   Int            @map("file_size") // bytes
+  mimeType   String         @map("mime_type")
+  status     DocumentStatus @default(PENDING)
+
+  // Audit
+  reviewedById String? @map("reviewed_by_id")
+  reviewedBy   User?   @relation("DocReviewer", fields: [reviewedById], references: [id])
+  remarks      String? @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([applicationId])
+  @@index([status])
+  @@map("loan_documents")
+}
+
+// ---------------------------------------------------------------------------
+//  FINTECH CORE — ACTIVE INSTALLMENT PLAN & LEDGER
+// ---------------------------------------------------------------------------
+
+model InstallmentPlan {
+  id            String          @id @default(cuid())
+  applicationId String          @unique @map("application_id")
+  application   LoanApplication @relation(fields: [applicationId], references: [id])
+  userId        String          @map("user_id")
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Frozen financial terms (immutable once the plan is generated)
+  financedAmount   BigInt @map("financed_amount") // principal P, Toman
+  annualRateBps    Int    @map("annual_rate_bps") // nominal annual rate, basis points
+  months           Int // n
+  monthlyPayment   BigInt @map("monthly_payment") // M (rounded to Toman)
+  totalPayable     BigInt @map("total_payable") // M * n
+  totalProfit      BigInt @map("total_profit") // totalPayable - financedAmount
+
+  // Live ledger state
+  remainingBalance BigInt     @map("remaining_balance")
+  paidMonthsCount  Int        @default(0) @map("paid_months_count")
+  status           PlanStatus @default(ACTIVE)
+  startDate        DateTime   @map("start_date")
+
+  months_schedule InstallmentMonth[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("installment_plans")
+}
+
+model InstallmentMonth {
+  id       String          @id @default(cuid())
+  planId   String          @map("plan_id")
+  plan     InstallmentPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  monthIndex Int               @map("month_index") // 1..n
+  dueDate    DateTime          @map("due_date") // UTC; rendered in Jalali in the UI
+  jalaliDue  String            @map("jalali_due") // cached Shamsi string e.g. "1405/04/15"
+  amount     BigInt // scheduled amount for this month, Toman
+  status     InstallmentStatus @default(UPCOMING)
+  paidAt     DateTime?         @map("paid_at")
+
+  // The slip that settled (or is attempting to settle) this month
+  paymentSlip PaymentSlip?
+
+  @@unique([planId, monthIndex])
+  @@index([status])
+  @@index([dueDate])
+  @@map("installment_months")
+}
+
+// ---------------------------------------------------------------------------
+//  PAYMENTS — SLIP UPLOAD & AUDIT
+// ---------------------------------------------------------------------------
+
+model PaymentSlip {
+  id                 String           @id @default(cuid())
+  installmentMonthId String           @unique @map("installment_month_id")
+  installmentMonth   InstallmentMonth @relation(fields: [installmentMonthId], references: [id], onDelete: Cascade)
+  userId             String           @map("user_id")
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Uploaded bank statement / screenshot metadata
+  url            String // object-storage URL of the screenshot
+  fileName       String  @map("file_name")
+  fileSize       Int     @map("file_size")
+  mimeType       String  @map("mime_type")
+
+  // What the user claims
+  trackingNumber String  @map("tracking_number") // شماره پیگیری tracking ref
+  paidAmount     BigInt  @map("paid_amount") // amount declared, Toman
+  paidAt         DateTime @map("paid_at") // when the user says they paid
+
+  // Accountant audit
+  status        SlipStatus @default(PENDING)
+  reviewedById  String?    @map("reviewed_by_id")
+  reviewedBy    User?      @relation("SlipReviewer", fields: [reviewedById], references: [id])
+  reviewedAt    DateTime?  @map("reviewed_at")
+  accountantRemarks String? @db.Text @map("accountant_remarks")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("payment_slips")
+}

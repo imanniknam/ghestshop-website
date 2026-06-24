@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   GhestShop — Design Tokens ("Liquid Glass" Premium Financial Tech)
+   Class-based theming: :root = LIGHT (default), .dark = DARK override.
+   Components consume var(--color-*) and the semantic Tailwind colours mapped
+   to them, so the entire UI flips by toggling the `.dark` class on <html>.
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --color-primary: #f59e0b;       /* gold fill (same vivid gold in both themes) */
+  --color-on-primary: #1c1917;    /* dark text that sits on the gold fill */
+  --color-secondary: #b45309;     /* amber-700 — legible accent text on light */
+  --color-accent: #7c3aed;        /* purple-tech */
+  --color-destructive: #dc2626;
+  --color-ring: #f59e0b;
+
+  /* Contrast-safe gold TEXT (vivid gold fails 4.5:1 on light surfaces) */
+  --color-gold: #b45309;          /* amber-700 */
+
+  /* Surfaces (LIGHT) */
+  --color-background: #f8fafc;     /* slate-50 */
+  --color-foreground: #0f172a;     /* slate-900 */
+  --color-muted: #e2e8f0;          /* slate-200 */
+  --color-border: #cbd5e1;         /* slate-300 */
+
+  --radius: 1rem;
+  color-scheme: light;
+}
+
+.dark {
+  --color-on-primary: #0f172a;
+  --color-secondary: #fbbf24;     /* amber-400 */
+  --color-accent: #8b5cf6;
+
+  --color-gold: #f59e0b;          /* vivid gold text reads fine on dark */
+
+  /* Surfaces (DARK) */
+  --color-background: #0f172a;     /* deep slate */
+  --color-foreground: #f8fafc;
+  --color-muted: #272f42;
+  --color-border: #334155;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    direction: rtl;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-vazir), var(--font-plex), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    /* Seamless cross-fade when the theme flips. */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Persian numerals render with tabular figures for stable financial layout. */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

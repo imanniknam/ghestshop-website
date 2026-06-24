@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"fintech installment payment ecommerce premium trust\" --design-system -p \"GhestShop\")",
+      "Bash(npm install *)",
+      "Bash(npx prisma *)",
+      "Bash(npx tsc *)",
+      "Bash(DATABASE_URL=\"postgresql://user:pass@localhost:5432/ghestshop\" npx next build)",
+      "Bash(python3 scripts/search.py \"fintech e-commerce installment storefront premium dark glassmorphism\" --design-system -f markdown)",
+      "Bash(python3 scripts/search.py \"e-commerce hero flash-sale social-proof conversion\" --domain landing -n 4)",
+      "Bash(python3 scripts/search.py \"glassmorphism blur performance reduced-motion countdown\" --domain ux -n 6)",
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:helixearth.com)",
+      "WebFetch(domain:www.awwwards.com)",
+      "Bash(xargs -0 perl -pi -e 's/bg-white\\\\//bg-foreground\\\\//g; s/border-white\\\\//border-foreground\\\\//g; s/ring-white\\\\//ring-foreground\\\\//g; s/text-\\\\[#F59E0B\\\\]/text-gold/g; s/bg-\\\\[#0F172A\\\\]/bg-background/g;')",
+      "WebFetch(domain:github.com)",
+      "Bash(python3 scripts/search.py \"glassmorphism frosted glass depth premium\" --domain style -n 2)",
+      "Bash(python3 scripts/search.py \"glassmorphism\" --domain prompt -n 2)",
+      "Bash(node -e \"console.log\\('lenis', require\\('./node_modules/lenis/package.json'\\).version\\)\")",
+      "Bash(grep -ao \"lenis-smooth[^;]\\\\{0,80\\\\}\" lenis.mjs)",
+      "Bash(grep -ao \"get isSmooth[^}]\\\\{0,120\\\\}\" lenis.mjs)",
+      "Bash(grep -ao \"isSmooth\\) {[^}]\\\\{0,180\\\\}\" lenis.mjs)",
+      "Bash(grep -ao \"get isSmooth\\(\\) {.\\\\{0,160\\\\}\" node_modules/lenis/dist/lenis.mjs)",
+      "Bash(node -e \"const p=require\\('./node_modules/lenis/package.json'\\); console.log\\('main:',p.main,'module:',p.module,'exports:',JSON.stringify\\(p.exports?.['.']||p.exports\\)\\)\")",
+      "Bash(node -e \"const p=require\\('lenis/package.json'\\); console.log\\('lenis', p.version\\)\")",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
