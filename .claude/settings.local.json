@@ -26,7 +26,25 @@
       "Bash(git init *)",
       "Bash(git config *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "Bash(vercel --version)",
+      "Bash(npx --no-install vercel --version)",
+      "Bash(npm -v)",
+      "Bash(vercel whoami *)",
+      "Bash(git -C /Users/amirali/Desktop/Belona/Ghest_Shop log --oneline -1)",
+      "Bash(git -C /Users/amirali/Desktop/Belona/Ghest_Shop remote -v)",
+      "Read(//Users/amirali/.ssh/**)",
+      "Bash(ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -T git@github.com)",
+      "Read(//Users/amirali/.config/**)",
+      "Read(//Users/amirali/.config/gh/**)",
+      "Bash(git remote *)",
+      "Bash(GIT_SSH_COMMAND=\"ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new\" git push -u origin main)",
+      "Bash(ssh-add -l)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://github.com/amirali-K/ghestshop)",
+      "Bash(ssh-add ~/.ssh/id_ed25519)",
+      "Bash(ssh -o BatchMode=yes -T git@github.com)"
     ]
   }
 }

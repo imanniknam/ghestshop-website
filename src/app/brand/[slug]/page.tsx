@@ -46,7 +46,7 @@ const RAW_CATALOG: RawProduct[] = [
     storage: '128', ram: '6', colors: ['مشکی', 'آبی', 'صورتی'], brand: { slug: 'apple' },
   },
   {
-    id: 'p-ip14', title: 'آیفون ۱۴', slug: 'iphone-14',
+    id: 'p-ip14', title: 'آیفون ۱۴ نرمال', slug: 'iphone-14',
     images: [img('iPhone 14')], cashPrice: 42_000_000, installmentMarkupBps: 1800,
     storage: '256', ram: '6', colors: ['بنفش', 'سفید', 'مشکی'], brand: { slug: 'apple' },
   },

@@ -79,6 +79,33 @@ const CATALOG: Record<string, CatalogEntry> = {
       isFlashSale: true, discountPercent: 12,
     },
   },
+  'p-zflip6': {
+    brandName: 'سامسونگ', network: '۵G',
+    raw: {
+      id: 'p-zflip6', title: 'سامسونگ گلکسی Z Flip6', slug: 'galaxy-z-flip6',
+      images: ['https://placehold.co/800x800/0f172a/f8fafc?text=Galaxy+Z+Flip6'],
+      cashPrice: 72_000_000, installmentMarkupBps: 1900,
+      storage: '512', ram: '12', colors: ['نقره‌ای', 'مشکی', 'زرد'], brand: { slug: 'samsung' },
+    },
+  },
+  'p-ip14': {
+    brandName: 'اپل', network: '۵G',
+    raw: {
+      id: 'p-ip14', title: 'آیفون ۱۴ نرمال', slug: 'iphone-14',
+      images: ['https://placehold.co/800x800/0f172a/f8fafc?text=iPhone+14'],
+      cashPrice: 42_000_000, installmentMarkupBps: 1800,
+      storage: '256', ram: '6', colors: ['بنفش', 'سفید', 'مشکی'], brand: { slug: 'apple' },
+    },
+  },
+  'p-poco-f6': {
+    brandName: 'شیائومی', network: '۵G',
+    raw: {
+      id: 'p-poco-f6', title: 'شیائومی پوکو F6', slug: 'poco-f6',
+      images: ['https://placehold.co/800x800/0f172a/f8fafc?text=POCO+F6'],
+      cashPrice: 21_000_000, installmentMarkupBps: 2100,
+      storage: '512', ram: '12', colors: ['مشکی', 'سبز'], brand: { slug: 'xiaomi' },
+    },
+  },
 };
 
 const DEFAULT_ANNUAL_RATE_BPS = 1800;
