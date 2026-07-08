@@ -138,8 +138,8 @@ export function HeroCarousel({ slides, className }: HeroCarouselProps): ReactNod
       )}
     >
       {/* Ambient depth glows */}
-      <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#F59E0B]/15 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[#7C3AED]/15 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#407DC0]/15 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[#38BDF8]/15 blur-3xl" />
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -152,7 +152,7 @@ export function HeroCarousel({ slides, className }: HeroCarouselProps): ReactNod
         >
           {/* Text panel (right in RTL) */}
           <div className="flex flex-col justify-center gap-5 p-8 sm:p-10">
-            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-1 text-xs font-semibold text-gold">
+            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-1 text-sm font-semibold text-gold">
               {slide.kind === 'product' ? <Sparkles className="h-3.5 w-3.5" /> : <Newspaper className="h-3.5 w-3.5" />}
               {slide.tag}
             </span>
@@ -180,9 +180,9 @@ export function HeroCarousel({ slides, className }: HeroCarouselProps): ReactNod
             <Link
               href={slide.href}
               className={cn(
-                'inline-flex w-fit items-center gap-2 rounded-xl bg-[#F59E0B] px-6 py-3 text-sm font-bold text-[#1C1917]',
-                'shadow-lg shadow-[#F59E0B]/25 transition-[filter] hover:brightness-110',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+                'inline-flex w-fit items-center gap-2 rounded-xl bg-[#407DC0] px-6 py-3 text-sm font-bold text-white',
+                'shadow-lg shadow-[#407DC0]/25 transition-[filter] hover:brightness-110',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
               )}
             >
               {slide.kind === 'product' ? 'مشاهده و خرید اقساطی' : 'مطالعه بیشتر'}
@@ -229,7 +229,7 @@ export function HeroCarousel({ slides, className }: HeroCarouselProps): ReactNod
           type="button"
           onClick={() => go(1)}
           aria-label="اسلاید بعدی"
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-foreground/10 text-foreground/80 backdrop-blur-sm transition-colors hover:bg-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-foreground/10 text-foreground/80 backdrop-blur-sm transition-colors hover:bg-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]"
         >
           <ChevronRight className="h-5 w-5" aria-hidden />
         </button>
@@ -243,7 +243,7 @@ export function HeroCarousel({ slides, className }: HeroCarouselProps): ReactNod
               aria-current={i === index}
               className={cn(
                 'h-1.5 cursor-pointer rounded-full transition-all',
-                i === index ? 'w-6 bg-[#F59E0B]' : 'w-1.5 bg-foreground/30 hover:bg-foreground/50',
+                i === index ? 'w-6 bg-[#407DC0]' : 'w-1.5 bg-foreground/30 hover:bg-foreground/50',
               )}
             />
           ))}
@@ -252,7 +252,7 @@ export function HeroCarousel({ slides, className }: HeroCarouselProps): ReactNod
           type="button"
           onClick={() => go(-1)}
           aria-label="اسلاید قبلی"
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-foreground/10 text-foreground/80 backdrop-blur-sm transition-colors hover:bg-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
+          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-foreground/10 text-foreground/80 backdrop-blur-sm transition-colors hover:bg-foreground/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]"
         >
           <ChevronLeft className="h-5 w-5" aria-hidden />
         </button>

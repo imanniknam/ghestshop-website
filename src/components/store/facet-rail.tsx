@@ -134,7 +134,7 @@ export function FacetRail({ className }: FacetRailProps): ReactNode {
           <button
             type="button"
             onClick={clearAll}
-            className="cursor-pointer text-xs text-foreground/50 transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            className="cursor-pointer text-sm text-foreground/50 transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
           >
             پاک کردن همه
           </button>
@@ -157,9 +157,9 @@ export function FacetRail({ className }: FacetRailProps): ReactNode {
                 type="button"
                 onClick={chip.remove}
                 className={cn(
-                  'flex items-center gap-1 rounded-full border border-[#F59E0B]/40 px-2.5 py-1 text-[11px] font-medium text-gold',
+                  'flex items-center gap-1 rounded-full border border-[#407DC0]/40 px-2.5 py-1 text-sm font-medium text-gold',
                   glassInset,
-                  'cursor-pointer transition-colors hover:border-[#F59E0B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+                  'cursor-pointer transition-colors hover:border-[#407DC0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
                 )}
               >
                 {chip.label}
@@ -202,7 +202,7 @@ interface FacetGroupProps {
 function FacetGroup({ title, options, isActive, onToggle }: FacetGroupProps): ReactNode {
   return (
     <section className="flex flex-col gap-2 border-t border-foreground/5 pt-4">
-      <h3 className="text-xs font-semibold text-foreground/60">{title}</h3>
+      <h3 className="text-sm font-semibold text-foreground/60">{title}</h3>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => {
           const active = isActive(opt.value);
@@ -213,10 +213,10 @@ function FacetGroup({ title, options, isActive, onToggle }: FacetGroupProps): Re
               onClick={() => onToggle(opt.value)}
               aria-pressed={active}
               className={cn(
-                'min-h-[2.25rem] cursor-pointer rounded-xl px-3 py-1.5 text-xs font-medium transition-colors',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+                'min-h-[2.25rem] cursor-pointer rounded-xl px-3 py-1.5 text-sm font-medium transition-colors',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
                 active
-                  ? 'bg-[#F59E0B] text-[#1C1917]'
+                  ? 'bg-[#407DC0] text-white'
                   : cn(glassInset, 'border border-foreground/5 hover:border-foreground/20'),
               )}
             >

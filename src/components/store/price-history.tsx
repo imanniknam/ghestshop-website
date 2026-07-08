@@ -75,17 +75,17 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
     <section dir="rtl" className={cn(glassClass('card', 'rounded-3xl p-6'), className)}>
       <header className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
             <TrendingDown className="h-5 w-5" aria-hidden />
           </span>
           <h2 className="text-base font-black tracking-tight text-foreground">روند قیمت ۶ ماه اخیر</h2>
         </div>
-        <div className="flex items-center gap-4 text-[11px]">
+        <div className="flex items-center gap-4 text-sm">
           <span className="flex items-center gap-1.5 text-foreground/60">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#F59E0B]" aria-hidden /> قیمت نقدی
+            <span className="h-2.5 w-2.5 rounded-full bg-[#407DC0]" aria-hidden /> قیمت نقدی
           </span>
           <span className="flex items-center gap-1.5 text-foreground/60">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#7C3AED]" aria-hidden /> ارزش اقساطی
+            <span className="h-2.5 w-2.5 rounded-full bg-[#38BDF8]" aria-hidden /> ارزش اقساطی
           </span>
         </div>
       </header>
@@ -94,8 +94,8 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
         <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="w-full" role="img" aria-label="نمودار روند قیمت">
           <defs>
             <linearGradient id="ph-area" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#7C3AED" stopOpacity={0.35} />
-              <stop offset="100%" stopColor="#7C3AED" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#38BDF8" stopOpacity={0.35} />
+              <stop offset="100%" stopColor="#38BDF8" stopOpacity={0.02} />
             </linearGradient>
           </defs>
 
@@ -107,7 +107,7 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
               x2={VB_W - PAD_X}
               y1={PAD_TOP + INNER_H * t}
               y2={PAD_TOP + INNER_H * t}
-              stroke="rgba(255,255,255,0.06)"
+              stroke="rgb(var(--color-foreground) / 0.10)"
               strokeWidth={1}
             />
           ))}
@@ -124,7 +124,7 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
           <motion.path
             d={geometry.stepped}
             fill="none"
-            stroke="#7C3AED"
+            stroke="#38BDF8"
             strokeWidth={2}
             strokeLinejoin="round"
             initial={{ pathLength: 0 }}
@@ -137,7 +137,7 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
           <motion.path
             d={geometry.cashLine}
             fill="none"
-            stroke="#F59E0B"
+            stroke="#407DC0"
             strokeWidth={2.5}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -155,12 +155,12 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
                 x2={geometry.x(hover)}
                 y1={PAD_TOP}
                 y2={PAD_TOP + INNER_H}
-                stroke="rgba(245,158,11,0.5)"
+                stroke="rgba(64,125,192,0.5)"
                 strokeWidth={1}
                 strokeDasharray="4 4"
               />
-              <circle cx={geometry.x(hover)} cy={geometry.y(active.cash)} r={5} fill="#F59E0B" />
-              <circle cx={geometry.x(hover)} cy={geometry.y(active.installment)} r={5} fill="#7C3AED" />
+              <circle cx={geometry.x(hover)} cy={geometry.y(active.cash)} r={5} fill="#407DC0" />
+              <circle cx={geometry.x(hover)} cy={geometry.y(active.installment)} r={5} fill="#38BDF8" />
             </g>
           )}
 
@@ -171,7 +171,7 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
               x={geometry.x(i)}
               y={VB_H - 14}
               textAnchor="middle"
-              className="fill-[rgba(248,250,252,0.45)]"
+              className="fill-foreground/50"
               fontSize={12}
             >
               {p.month}
@@ -183,21 +183,21 @@ export function PriceHistory({ points, className }: PriceHistoryProps): ReactNod
         {active && hover != null && (
           <div
             dir="rtl"
-            className="pointer-events-none absolute top-2 z-10 -translate-x-1/2 rounded-xl border border-foreground/15 bg-[var(--color-background)]/90 p-2.5 text-xs shadow-xl backdrop-blur-md"
+            className="pointer-events-none absolute top-2 z-10 -translate-x-1/2 rounded-xl border border-foreground/15 bg-background/90 p-2.5 text-sm shadow-xl backdrop-blur-md"
             style={{ left: `${(geometry.x(hover) / VB_W) * 100}%` }}
           >
             <p className="mb-1 font-bold text-foreground">{active.month}</p>
             <p className="flex items-center gap-1.5 text-foreground/70">
-              <span className="h-2 w-2 rounded-full bg-[#F59E0B]" /> {formatToman(active.cash)}
+              <span className="h-2 w-2 rounded-full bg-[#407DC0]" /> {formatToman(active.cash)}
             </p>
             <p className="mt-0.5 flex items-center gap-1.5 text-foreground/70">
-              <span className="h-2 w-2 rounded-full bg-[#7C3AED]" /> {formatToman(active.installment)}
+              <span className="h-2 w-2 rounded-full bg-[#38BDF8]" /> {formatToman(active.installment)}
             </p>
           </div>
         )}
       </div>
 
-      <p className="mt-3 text-center text-[11px] text-foreground/40">
+      <p className="mt-3 text-center text-sm text-foreground/40">
         قیمت‌ها بر اساس میانگین بازار طی {toPersianDigits(6)} ماه گذشته است.
       </p>
     </section>

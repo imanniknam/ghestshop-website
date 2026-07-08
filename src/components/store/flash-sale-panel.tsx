@@ -29,8 +29,8 @@ import { cn } from '@/lib/utils';
 const ROTATE: Transition = { duration: 8, ease: 'linear', repeat: Infinity };
 const ROTATE_SLOW: Transition = { duration: 16, ease: 'linear', repeat: Infinity };
 const BREATHE: Transition = { duration: 5, ease: 'easeInOut', repeat: Infinity };
-const CONIC = 'conic-gradient(from 0deg, #F59E0B, #7C3AED, #F59E0B)';
-const CONIC_ALT = 'conic-gradient(from 180deg, #7C3AED, #F59E0B, #7C3AED)';
+const CONIC = 'conic-gradient(from 0deg, #407DC0, #38BDF8, #407DC0)';
+const CONIC_ALT = 'conic-gradient(from 180deg, #38BDF8, #407DC0, #38BDF8)';
 
 export interface OfferProduct {
   readonly title: string;
@@ -50,7 +50,7 @@ function discountPercent(original: number, current: number): number {
 
 export function FlashSalePanel({ offers, lookup, className }: FlashSalePanelProps): ReactNode {
   const reduceMotion = Boolean(useReducedMotion());
-  const glow = usePointerGlow({ size: 420, color: 'rgba(245,158,11,0.20)' });
+  const glow = usePointerGlow({ size: 420, color: 'rgba(64,125,192,0.20)' });
 
   const [main, ...rest] = offers;
   if (!main) return null;
@@ -58,7 +58,7 @@ export function FlashSalePanel({ offers, lookup, className }: FlashSalePanelProp
   return (
     <section dir="rtl" className={cn('flex flex-col gap-4', className)}>
       <header className="flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
           <Zap className="h-5 w-5" aria-hidden />
         </span>
         <h2 className="text-lg font-black tracking-tight text-foreground">فروش‌های ویژه و رعد و برقی</h2>
@@ -70,7 +70,7 @@ export function FlashSalePanel({ offers, lookup, className }: FlashSalePanelProp
         {!reduceMotion && (
           <motion.span
             aria-hidden
-            className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-br from-[#F59E0B] to-[#7C3AED] opacity-40 blur-3xl will-change-[opacity,transform]"
+            className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-br from-[#407DC0] to-[#38BDF8] opacity-40 blur-3xl will-change-[opacity,transform]"
             animate={{ opacity: [0.3, 0.55, 0.3], scale: [0.98, 1.02, 0.98] }}
             transition={BREATHE}
           />
@@ -160,10 +160,10 @@ function MainOffer({
             className="h-full w-full object-contain"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-xs text-foreground/30">بدون تصویر</div>
+          <div className="flex h-full w-full items-center justify-center text-sm text-foreground/30">بدون تصویر</div>
         )}
         {off > 0 && (
-          <span className="absolute right-3 top-3 rounded-full bg-[#7C3AED] px-3 py-1 text-xs font-black text-white">
+          <span className="absolute right-3 top-3 rounded-full bg-[#38BDF8] px-3 py-1 text-sm font-black text-white">
             ٪{toPersianDigits(off)}− تخفیف
           </span>
         )}
@@ -184,24 +184,24 @@ function MainOffer({
         </div>
 
         <div className={cn('flex items-baseline justify-between rounded-xl px-4 py-2.5', glassInset)}>
-          <span className="text-xs text-foreground/60">اقساط از</span>
+          <span className="text-sm text-foreground/60">اقساط از</span>
           <span className="text-base font-black tabular-nums text-gold">
             {formatToman(offer.monthlyInstallment, { withSuffix: false })}
-            <span className="mr-1 text-[11px] font-normal text-gold/70">تومان / ماه</span>
+            <span className="mr-1 text-sm font-normal text-gold/70">تومان / ماه</span>
           </span>
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-xs text-foreground/55">پایان فروش ویژه:</span>
+          <span className="text-sm text-foreground/55">پایان فروش ویژه:</span>
           <Countdown endsAt={offer.countdownEndsAt} />
         </div>
 
         <Link
           href={`/product/${offer.productId}`}
           className={cn(
-            'mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#F59E0B] py-3 text-sm font-bold text-[#1C1917]',
-            'shadow-lg shadow-[#F59E0B]/25 transition-[filter] hover:brightness-110',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+            'mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#407DC0] py-3 text-sm font-bold text-white',
+            'shadow-lg shadow-[#407DC0]/25 transition-[filter] hover:brightness-110',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
           )}
         >
           {reduceMotion ? null : <Zap className="h-4 w-4" aria-hidden />}
@@ -226,7 +226,7 @@ function SecondaryOffer({ offer, product }: { offer: FlashOfferVM; product?: Off
       href={`/product/${offer.productId}`}
       className={cn(
         glassClass('card', 'group flex items-center gap-4 rounded-2xl p-4'),
-        'transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+        'transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
       )}
     >
       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-foreground/5 p-2">
@@ -235,7 +235,7 @@ function SecondaryOffer({ offer, product }: { offer: FlashOfferVM; product?: Off
           <img src={product.image} alt={title} className="h-full w-full object-contain" />
         ) : null}
         {off > 0 && (
-          <span className="absolute right-1 top-1 rounded-full bg-[#7C3AED] px-1.5 py-0.5 text-[9px] font-bold text-white">
+          <span className="absolute right-1 top-1 rounded-full bg-[#38BDF8] px-1.5 py-0.5 text-sm font-bold text-white">
             ٪{toPersianDigits(off)}−
           </span>
         )}

@@ -82,7 +82,7 @@ export function GalleryCarousel({
       tabIndex={0}
       onKeyDown={onKeyDown}
       className={cn(
-        'flex flex-col gap-4 rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+        'flex flex-col gap-4 rounded-3xl outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
         className,
       )}
     >
@@ -102,7 +102,7 @@ export function GalleryCarousel({
         </AnimatePresence>
 
         {/* Position indicator (aligned right in RTL) */}
-        <div className="absolute bottom-3 right-3 rounded-full bg-black/40 px-2.5 py-1 text-[11px] font-bold text-white/80 backdrop-blur-sm tabular-nums">
+        <div className="absolute bottom-3 right-3 rounded-full bg-black/40 px-2.5 py-1 text-sm font-bold text-white/80 backdrop-blur-sm tabular-nums">
           {toFa(activeIndex + 1)} / {toFa(variants.length)}
         </div>
       </div>
@@ -122,16 +122,16 @@ export function GalleryCarousel({
               onClick={() => onColorChange(variant.color)}
               className={cn(
                 'h-7 w-7 cursor-pointer rounded-full border transition-transform',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
                 isActive
-                  ? 'scale-110 border-[#F59E0B] ring-2 ring-[#F59E0B]/40'
+                  ? 'scale-110 border-[#407DC0] ring-2 ring-[#407DC0]/40'
                   : 'border-foreground/20 hover:scale-105',
               )}
               style={{ backgroundColor: swatchHex(variant.color) }}
             />
           );
         })}
-        <span className="mr-1 text-xs text-foreground/55">{active.color}</span>
+        <span className="mr-1 text-sm text-foreground/55">{active.color}</span>
       </div>
 
       {/* Thumbnail track — scroll-snap, RTL */}
@@ -153,8 +153,8 @@ export function GalleryCarousel({
               style={{ scrollSnapAlign: 'end' }}
               className={cn(
                 'relative h-16 w-16 shrink-0 cursor-pointer overflow-hidden rounded-xl border transition-colors',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
-                isActive ? 'border-[#F59E0B]' : 'border-foreground/10 hover:border-foreground/30',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
+                isActive ? 'border-[#407DC0]' : 'border-foreground/10 hover:border-foreground/30',
               )}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -162,7 +162,7 @@ export function GalleryCarousel({
               {isActive && (
                 <motion.span
                   layoutId="gallery-thumb-active"
-                  className="absolute inset-0 rounded-xl ring-2 ring-inset ring-[#F59E0B]"
+                  className="absolute inset-0 rounded-xl ring-2 ring-inset ring-[#407DC0]"
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 />
               )}

@@ -111,12 +111,12 @@ export function Countdown({ endsAt, compact = false, className, onComplete }: Co
             >
               {faPad(0)}
             </span>
-            <span className={cn('text-foreground/45', compact ? 'text-[9px]' : 'text-[10px]')}>
+            <span className={cn('text-foreground/45', compact ? 'text-sm' : 'text-sm')}>
               {block.label}
             </span>
           </div>
           {index < blocks.length - 1 && (
-            <span className={cn('font-black text-gold', compact ? 'text-xs' : 'text-base')} aria-hidden>
+            <span className={cn('font-black text-gold', compact ? 'text-sm' : 'text-base')} aria-hidden>
               :
             </span>
           )}

@@ -40,7 +40,7 @@ export interface PointerGlow {
 
 export function usePointerGlow({
   size = 320,
-  color = 'rgba(245,158,11,0.18)',
+  color = 'rgba(64,125,192,0.18)',
 }: PointerGlowOptions = {}): PointerGlow {
   const reduceMotion = useReducedMotion();
   const mx = useMotionValue(50);

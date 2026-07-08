@@ -106,12 +106,12 @@ export function ProductCard({ product, className }: ProductCardProps): ReactNode
 
       {/* Flash-sale ribbon */}
       {product.isFlashSale && (
-        <span className="absolute right-3 top-3 z-20 rounded-full bg-[#F59E0B] px-2.5 py-1 text-[11px] font-black text-[#1C1917] shadow-lg shadow-[#F59E0B]/30">
+        <span className="absolute right-3 top-3 z-20 rounded-full bg-[#407DC0] px-2.5 py-1 text-caption font-bold text-white shadow-lg shadow-[#407DC0]/30">
           فروش ویژه
         </span>
       )}
       {product.discountPercent ? (
-        <span className="absolute left-3 top-3 z-20 rounded-full bg-[#7C3AED] px-2.5 py-1 text-[11px] font-bold text-white">
+        <span className="absolute left-3 top-3 z-20 rounded-full bg-[#38BDF8] px-2.5 py-1 text-caption font-bold text-white">
           ٪{toPersianDigits(product.discountPercent)}−
         </span>
       ) : null}
@@ -132,22 +132,22 @@ export function ProductCard({ product, className }: ProductCardProps): ReactNode
             className="relative h-full w-full scale-[1.06] object-contain p-5 transition-transform duration-500 group-hover:scale-[1.12]"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-xs text-foreground/30">بدون تصویر</div>
+          <div className="flex h-full w-full items-center justify-center text-sm text-foreground/30">بدون تصویر</div>
         )}
       </div>
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-3 p-4 pt-3">
-        <h3 className="line-clamp-2 min-h-[2.5rem] text-[15px] font-bold leading-snug tracking-tight text-foreground">
+        <h3 className="line-clamp-2 min-h-[2.5rem] text-body font-bold leading-snug text-foreground">
           {product.title}
         </h3>
 
         {/* Spec chips */}
         <div className="flex flex-wrap gap-1.5">
-          <span className={cn('rounded-lg px-2 py-1 text-[11px] font-medium', glassInset)}>
+          <span className={cn('rounded-lg px-2 py-1 text-caption font-medium', glassInset)}>
             {toPersianDigits(product.ram)} گیگ رم
           </span>
-          <span className={cn('rounded-lg px-2 py-1 text-[11px] font-medium', glassInset)}>
+          <span className={cn('rounded-lg px-2 py-1 text-caption font-medium', glassInset)}>
             {formatStorage(product.storage)}
           </span>
         </div>
@@ -164,7 +164,7 @@ export function ProductCard({ product, className }: ProductCardProps): ReactNode
               />
             ))}
             {extraColors > 0 && (
-              <span className="text-[11px] text-foreground/50">+{toPersianDigits(extraColors)}</span>
+              <span className="text-sm text-foreground/50">+{toPersianDigits(extraColors)}</span>
             )}
           </div>
         )}
@@ -172,13 +172,13 @@ export function ProductCard({ product, className }: ProductCardProps): ReactNode
         {/* Pricing */}
         <div className="mt-auto flex flex-col gap-2 pt-1">
           <div className={cn('flex items-baseline justify-between rounded-xl px-3 py-2', glassInset)}>
-            <span className="text-[11px] text-foreground/60">از</span>
-            <span className="text-sm font-black tabular-nums text-gold">
+            <span className="text-caption text-foreground/60">از</span>
+            <span className="text-price tabular-nums text-gold">
               <CountUpToman value={product.monthlyInstallmentFrom} reduceMotion={reduceMotion} />
-              <span className="mr-1 text-[10px] font-normal text-gold/70">تومان / ماه</span>
+              <span className="mr-1 text-caption font-normal text-gold/70">تومان / ماه</span>
             </span>
           </div>
-          <p className="text-center text-[11px] text-foreground/45">
+          <p className="text-center text-caption text-foreground/45">
             قیمت نقدی: <span className="tabular-nums">{formatToman(product.cashPrice)}</span>
           </p>
         </div>
@@ -187,9 +187,9 @@ export function ProductCard({ product, className }: ProductCardProps): ReactNode
         <Link
           href={`/product/${product.id}`}
           className={cn(
-            'mt-1 flex items-center justify-center gap-1.5 rounded-xl bg-[#F59E0B] py-2.5 text-sm font-bold text-[#1C1917]',
-            'shadow-lg shadow-[#F59E0B]/20 transition-[filter] hover:brightness-110',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+            'mt-1 flex items-center justify-center gap-1.5 rounded-xl bg-[#407DC0] py-2.5 text-body font-bold text-white',
+            'shadow-lg shadow-[#407DC0]/20 transition-[filter] hover:brightness-110',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
           )}
         >
           مشاهده و خرید اقساطی

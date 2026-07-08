@@ -152,7 +152,7 @@ export function generateMetadata({ params }: ProductPageProps): Metadata {
   if (!detail) return { title: 'محصول یافت نشد' };
   return {
     title: `خرید اقساطی ${detail.product.title}`,
-    description: `${detail.product.title} با شرایط اقساطی ویژه، پیش‌پرداخت دلخواه و بازپرداخت تا ۲۴ ماه در قسط‌شاپ.`,
+    description: `${detail.product.title} با شرایط اقساطی ویژه، پیش‌پرداخت دلخواه و بازپرداخت تا ۲۴ ماه در قسط شاپ.`,
   };
 }
 

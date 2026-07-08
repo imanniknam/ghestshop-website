@@ -100,17 +100,17 @@ export function ScrollytellingUnboxing({ className }: ScrollytellingUnboxingProp
     <section dir="rtl" ref={ref} className={cn('relative h-[400vh]', className)}>
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
         {/* Ambient depth glows */}
-        <div aria-hidden className="pointer-events-none absolute -right-32 top-1/4 h-72 w-72 rounded-full bg-[#F59E0B]/15 blur-3xl" />
-        <div aria-hidden className="pointer-events-none absolute -left-24 bottom-1/4 h-72 w-72 rounded-full bg-[#7C3AED]/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -right-32 top-1/4 h-72 w-72 rounded-full bg-[#407DC0]/15 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -left-24 bottom-1/4 h-72 w-72 rounded-full bg-[#38BDF8]/15 blur-3xl" />
 
         {/* Caption */}
         <div className="absolute right-1/2 top-10 z-20 flex translate-x-1/2 flex-col items-center gap-1 text-center">
-          <span className="flex items-center gap-1.5 text-xs font-bold text-gold">
+          <span className="flex items-center gap-1.5 text-sm font-bold text-gold">
             <Layers className="h-3.5 w-3.5" aria-hidden />
             تجربه‌ی کشف محصول
           </span>
           <h2 className="text-2xl font-black text-foreground sm:text-3xl">{PHASES[phase].title}</h2>
-          <p className="text-xs text-foreground/55">{PHASES[phase].hint}</p>
+          <p className="text-sm text-foreground/55">{PHASES[phase].hint}</p>
         </div>
 
         {/* 3D stage */}
@@ -128,7 +128,7 @@ export function ScrollytellingUnboxing({ className }: ScrollytellingUnboxingProp
               style={{ y: lidY, rotateX: lidRotateX, opacity: lidOpacity, transformOrigin: 'top center' }}
               className="absolute inset-x-[-8%] top-[6%] h-16 rounded-[2rem] border border-foreground/15 bg-gradient-to-b from-[#222b44] to-[#161c2e] shadow-xl"
             >
-              <span className="absolute inset-x-0 top-1/2 mx-auto h-px w-1/3 -translate-y-1/2 bg-gradient-to-l from-[#F59E0B]/60 to-transparent" />
+              <span className="absolute inset-x-0 top-1/2 mx-auto h-px w-1/3 -translate-y-1/2 bg-gradient-to-l from-[#407DC0]/60 to-transparent" />
             </motion.div>
 
             {/* Phone group (levitates, rotates, then explodes) */}
@@ -159,13 +159,13 @@ export function ScrollytellingUnboxing({ className }: ScrollytellingUnboxingProp
                   style={{ top: `${10 + i * 26}%` }}
                 >
                   <div className={cn('rounded-xl px-3 py-2 text-right', glassInset)}>
-                    <p className="flex items-center justify-end gap-1.5 text-xs font-bold text-foreground">
+                    <p className="flex items-center justify-end gap-1.5 text-sm font-bold text-foreground">
                       {spec.label}
-                      <span className="h-2 w-2 rounded-full bg-[#F59E0B] shadow-[0_0_8px_2px_rgba(245,158,11,0.6)]" />
+                      <span className="h-2 w-2 rounded-full bg-[#407DC0] shadow-[0_0_8px_2px_rgba(64,125,192,0.6)]" />
                     </p>
-                    <p className="text-[10px] text-foreground/55">{spec.sub}</p>
+                    <p className="text-sm text-foreground/55">{spec.sub}</p>
                   </div>
-                  <span className="absolute left-0 top-1/2 h-px w-4 -translate-x-full bg-gradient-to-l from-[#F59E0B] to-transparent" />
+                  <span className="absolute left-0 top-1/2 h-px w-4 -translate-x-full bg-gradient-to-l from-[#407DC0] to-transparent" />
                 </div>
               ))}
             </motion.div>
@@ -178,12 +178,12 @@ export function ScrollytellingUnboxing({ className }: ScrollytellingUnboxingProp
             {PHASES.map((p, i) => (
               <span
                 key={p.title}
-                className={cn('h-1.5 rounded-full transition-all', i === phase ? 'w-6 bg-[#F59E0B]' : 'w-1.5 bg-foreground/25')}
+                className={cn('h-1.5 rounded-full transition-all', i === phase ? 'w-6 bg-[#407DC0]' : 'w-1.5 bg-foreground/25')}
               />
             ))}
           </div>
           {phase === 0 && (
-            <span className="flex items-center gap-1.5 text-[11px] text-foreground/45">
+            <span className="flex items-center gap-1.5 text-sm text-foreground/45">
               <MousePointerClick className="h-3.5 w-3.5" aria-hidden />
               برای کاوش اسکرول کنید
             </span>

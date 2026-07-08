@@ -60,7 +60,7 @@ export function ComparisonModule({ current, candidates, className }: ComparisonM
   return (
     <section dir="rtl" className={cn('flex flex-col gap-5', className)}>
       <header className="flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
           <Swords className="h-5 w-5" aria-hidden />
         </span>
         <h2 className="text-lg font-black tracking-tight text-foreground">مقایسه هوشمند رو در رو</h2>
@@ -70,7 +70,7 @@ export function ComparisonModule({ current, candidates, className }: ComparisonM
         {/* Contenders + Product B selector */}
         <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-b border-foreground/10 pb-4">
           <Contender device={current} highlight />
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10 text-xs font-black text-foreground/60">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground/10 text-sm font-black text-foreground/60">
             VS
           </span>
 
@@ -83,14 +83,14 @@ export function ComparisonModule({ current, candidates, className }: ComparisonM
               className={cn(
                 'flex w-full items-center justify-between gap-2 rounded-xl px-3 py-2 text-right transition-colors',
                 glassInset,
-                'cursor-pointer hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+                'cursor-pointer hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
               )}
             >
               <span className="min-w-0">
                 <span className="block truncate text-sm font-bold text-foreground">
                   {competitor ? competitor.name : 'انتخاب رقیب'}
                 </span>
-                <span className="text-[11px] text-foreground/45">برای مقایسه انتخاب کنید</span>
+                <span className="text-sm text-foreground/45">برای مقایسه انتخاب کنید</span>
               </span>
               <ChevronDown className={cn('h-4 w-4 shrink-0 text-foreground/50 transition-transform', open && 'rotate-180')} aria-hidden />
             </button>
@@ -121,7 +121,7 @@ export function ComparisonModule({ current, candidates, className }: ComparisonM
                         )}
                       >
                         <span className="truncate text-sm font-medium text-foreground">{device.name}</span>
-                        <span className="shrink-0 text-[11px] tabular-nums text-foreground/45">
+                        <span className="shrink-0 text-sm tabular-nums text-foreground/45">
                           {formatToman(device.cashPrice, { withSuffix: false })}
                         </span>
                       </button>
@@ -169,7 +169,7 @@ export function ComparisonModule({ current, candidates, className }: ComparisonM
                 </span>
                 <ul className="flex flex-col gap-2">
                   {analysis.caseFor.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-foreground/75">
+                    <li key={i} className="flex items-start gap-2 text-sm leading-relaxed text-foreground/75">
                       <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" aria-hidden />
                       {item}
                     </li>
@@ -177,14 +177,14 @@ export function ComparisonModule({ current, candidates, className }: ComparisonM
                 </ul>
               </div>
               <div className={cn('flex flex-col gap-2.5 rounded-2xl p-4', glassInset)}>
-                <span className="flex items-center gap-2 text-sm font-black text-[var(--color-destructive)]">
+                <span className="flex items-center gap-2 text-sm font-black text-destructive">
                   <ThumbsDown className="h-4 w-4" aria-hidden />
                   چرا خیر؟
                 </span>
                 <ul className="flex flex-col gap-2">
                   {analysis.caseAgainst.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs leading-relaxed text-foreground/75">
-                      <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--color-destructive)]" aria-hidden />
+                    <li key={i} className="flex items-start gap-2 text-sm leading-relaxed text-foreground/75">
+                      <X className="mt-0.5 h-3.5 w-3.5 shrink-0 text-destructive" aria-hidden />
                       {item}
                     </li>
                   ))}
@@ -209,7 +209,7 @@ function Contender({ device, highlight = false }: { device: StoreDevice; highlig
       </div>
       <div className="min-w-0">
         <p className="truncate text-sm font-bold text-foreground">{device.name}</p>
-        <p className={cn('text-[11px]', highlight ? 'text-gold' : 'text-foreground/45')}>
+        <p className={cn('text-sm', highlight ? 'text-gold' : 'text-foreground/45')}>
           {highlight ? 'انتخاب شما' : 'رقیب بازار'}
         </p>
       </div>
@@ -257,19 +257,19 @@ function PowerBar({
 }): ReactNode {
   return (
     <div className="flex items-center gap-3">
-      <span className="w-20 shrink-0 truncate text-xs text-foreground/60">{name}</span>
+      <span className="w-20 shrink-0 truncate text-sm text-foreground/60">{name}</span>
       <div className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-foreground/10">
         <motion.span
           className={cn(
             'absolute inset-y-0 right-0 rounded-full',
-            isWinner ? 'bg-gradient-to-l from-[#F59E0B] to-[#7C3AED]' : 'bg-foreground/30',
+            isWinner ? 'bg-gradient-to-l from-[#407DC0] to-[#38BDF8]' : 'bg-foreground/30',
           )}
           initial={{ width: 0 }}
           animate={{ width: `${Math.max(0, Math.min(100, value))}%` }}
           transition={{ duration: 0.9, delay, ease: EASE_EXPO }}
         />
       </div>
-      <span className="flex w-12 shrink-0 items-center justify-end gap-1 text-xs font-bold tabular-nums text-foreground">
+      <span className="flex w-12 shrink-0 items-center justify-end gap-1 text-sm font-bold tabular-nums text-foreground">
         ٪{toPersianDigits(value)}
         {isWinner && <Trophy className="h-3.5 w-3.5 text-gold" aria-label="برنده" />}
       </span>

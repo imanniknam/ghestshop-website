@@ -70,7 +70,7 @@ export function OverlordDashboard({
       dir="rtl"
       lang="fa"
       className={cn(
-        'min-h-screen w-full bg-[var(--color-background)] px-4 py-6 sm:px-6 lg:px-8',
+        'min-h-screen w-full bg-background px-4 py-6 sm:px-6 lg:px-8',
         className,
       )}
     >
@@ -78,17 +78,17 @@ export function OverlordDashboard({
         {/* Top bar */}
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl font-black text-[var(--color-foreground)]">داشبورد مدیریت</h1>
-            <p className="text-sm text-[var(--color-foreground)]/55">مرکز فرماندهی فروشگاه قسطی</p>
+            <h1 className="text-xl font-black text-foreground">داشبورد مدیریت</h1>
+            <p className="text-sm text-foreground/55">مرکز فرماندهی فروشگاه قسطی</p>
           </div>
           {operatorName && (
             <div className="flex items-center gap-3 rounded-2xl border border-foreground/10 bg-foreground/5 px-4 py-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-black text-[var(--color-on-primary)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-black text-primary-foreground">
                 {operatorName.trim().charAt(0)}
               </div>
               <div className="leading-tight">
-                <p className="text-xs text-[var(--color-foreground)]/50">اپراتور</p>
-                <p className="text-sm font-bold text-[var(--color-foreground)]">{operatorName}</p>
+                <p className="text-sm text-foreground/50">اپراتور</p>
+                <p className="text-sm font-bold text-foreground">{operatorName}</p>
               </div>
             </div>
           )}
@@ -112,15 +112,15 @@ export function OverlordDashboard({
                 onClick={() => setTab(t.key)}
                 className={cn(
                   'relative flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors sm:flex-none',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
-                  active ? 'text-[var(--color-on-primary)]' : 'text-[var(--color-foreground)]/60 hover:text-[var(--color-foreground)]',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                  active ? 'text-primary-foreground' : 'text-foreground/60 hover:text-foreground',
                 )}
               >
                 {active && (
                   <motion.span
                     layoutId="admin-tab-pill"
                     transition={reduceMotion ? { duration: 0 } : SPRING}
-                    className="absolute inset-0 -z-10 rounded-xl bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/25"
+                    className="absolute inset-0 -z-10 rounded-xl bg-primary shadow-lg shadow-primary/25"
                   />
                 )}
                 <Icon className="h-4 w-4" />

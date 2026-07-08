@@ -52,7 +52,7 @@ export function AiInstallmentPlanner({
   return (
     <section dir="rtl" className={cn('flex flex-col gap-4', className)}>
       <header className="flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
           <Wallet className="h-5 w-5" aria-hidden />
         </span>
         <h2 className="text-lg font-black tracking-tight text-foreground">برنامه‌ریز هوشمند اقساط</h2>
@@ -100,7 +100,7 @@ export function AiInstallmentPlanner({
               transition={{ duration: 0.4, ease: EASE_EXPO }}
               className={cn('flex flex-col gap-2 rounded-2xl p-5', glassInset)}
             >
-              <span className="flex items-center gap-2 text-xs font-bold text-emerald-400">
+              <span className="flex items-center gap-2 text-sm font-bold text-emerald-400">
                 <BadgeCheck className="h-4 w-4" aria-hidden />
                 بهترین و امن‌ترین گزینه
               </span>
@@ -111,13 +111,13 @@ export function AiInstallmentPlanner({
               <p className="text-sm tabular-nums text-foreground/70">
                 قسط ماهانه: <span className="font-black text-gold">{formatToman(plan.optimal.monthly)}</span>
               </p>
-              <p className="text-xs text-foreground/50">
+              <p className="text-sm text-foreground/50">
                 معادل {toPersianDigits(plan.optimal.dtiPercent)}٪ از درآمد ماهانه شما (محدوده‌ی امن)
               </p>
             </motion.div>
           ) : (
             <div className={cn('flex items-start gap-2 rounded-2xl p-5', glassInset)}>
-              <CircleAlert className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-destructive)]" aria-hidden />
+              <CircleAlert className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden />
               <p className="text-sm text-foreground/75">
                 با درآمد فعلی، هیچ بازه‌ای در محدوده‌ی امن مالی قرار نمی‌گیرد. راهنمایی هوشمند را در پایین ببینید.
               </p>
@@ -133,15 +133,15 @@ export function AiInstallmentPlanner({
                   key={opt.months}
                   className={cn(
                     'flex items-center justify-between gap-3 rounded-xl px-4 py-2.5 text-sm',
-                    isOptimal ? 'bg-[#F59E0B]/15 ring-1 ring-[#F59E0B]/40' : 'bg-foreground/[0.04]',
+                    isOptimal ? 'bg-[#407DC0]/15 ring-1 ring-[#407DC0]/40' : 'bg-foreground/[0.04]',
                   )}
                 >
                   <span className="font-bold text-foreground">{toPersianDigits(opt.months)} ماهه</span>
                   <span className="tabular-nums text-foreground/70">{formatToman(opt.monthly, { withSuffix: false })}</span>
                   <span
                     className={cn(
-                      'rounded-full px-2 py-0.5 text-[11px] font-bold tabular-nums',
-                      opt.affordable ? 'bg-emerald-500/15 text-emerald-400' : 'bg-[var(--color-destructive)]/15 text-[var(--color-destructive)]',
+                      'rounded-full px-2 py-0.5 text-sm font-bold tabular-nums',
+                      opt.affordable ? 'bg-emerald-500/15 text-emerald-400' : 'bg-destructive/15 text-destructive',
                     )}
                   >
                     ٪{toPersianDigits(opt.dtiPercent)} درآمد
@@ -204,7 +204,7 @@ function SliderField({
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         aria-label={label}
-        className="h-2 w-full cursor-pointer appearance-none rounded-full bg-foreground/15 accent-[#F59E0B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+        className="h-2 w-full cursor-pointer appearance-none rounded-full bg-foreground/15 accent-[#407DC0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
       />
     </div>
   );

@@ -33,7 +33,7 @@ export function RelatedProducts({
   return (
     <section dir="rtl" className={cn('flex flex-col gap-4', className)}>
       <header className="flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
           <Layers className="h-5 w-5" aria-hidden />
         </span>
         <h2 className="text-lg font-black tracking-tight text-foreground">{title}</h2>

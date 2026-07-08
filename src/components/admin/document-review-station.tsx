@@ -73,8 +73,8 @@ export function DocumentReviewStation({
       {/* ---- Left pane: application list ------------------------------- */}
       <aside className="flex max-h-[34rem] flex-col overflow-hidden rounded-3xl border border-foreground/15 bg-foreground/10 backdrop-blur-xl ring-1 ring-inset ring-foreground/5">
         <header className="flex items-center justify-between border-b border-foreground/10 px-4 py-3">
-          <h3 className="text-sm font-bold text-[var(--color-foreground)]">درخواست‌های در انتظار</h3>
-          <span className="rounded-full bg-[var(--color-primary)]/15 px-2 py-0.5 text-xs font-bold text-[var(--color-primary)] tabular-nums">
+          <h3 className="text-sm font-bold text-foreground">درخواست‌های در انتظار</h3>
+          <span className="rounded-full bg-primary/15 px-2 py-0.5 text-sm font-bold text-primary tabular-nums">
             {toPersianDigits(applications.length)}
           </span>
         </header>
@@ -95,9 +95,9 @@ export function DocumentReviewStation({
                       aria-pressed={active}
                       className={cn(
                         'relative w-full cursor-pointer rounded-2xl border p-3 text-right transition-colors',
-                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                         active
-                          ? 'border-[var(--color-primary)]/40 bg-[var(--color-primary)]/10'
+                          ? 'border-primary/40 bg-primary/10'
                           : 'border-transparent hover:bg-foreground/5',
                       )}
                     >
@@ -105,26 +105,26 @@ export function DocumentReviewStation({
                         <motion.span
                           layoutId="app-active-rail"
                           transition={reduceMotion ? { duration: 0 } : SPRING}
-                          className="absolute inset-y-2 right-0 w-1 rounded-full bg-[var(--color-primary)]"
+                          className="absolute inset-y-2 right-0 w-1 rounded-full bg-primary"
                         />
                       )}
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-bold text-[var(--color-foreground)]">
+                          <p className="truncate text-sm font-bold text-foreground">
                             {app.applicant.fullName}
                           </p>
-                          <p className="truncate text-xs text-[var(--color-foreground)]/50">{app.productTitle}</p>
+                          <p className="truncate text-sm text-foreground/50">{app.productTitle}</p>
                         </div>
                         <span
                           className={cn(
-                            'shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold tabular-nums',
+                            'shrink-0 rounded-full border px-2 py-0.5 text-sm font-bold tabular-nums',
                             RISK_STYLES[risk.band],
                           )}
                         >
                           {toPersianDigits(risk.score)}
                         </span>
                       </div>
-                      <p className="mt-2 text-xs font-semibold tabular-nums text-[var(--color-foreground)]/70">
+                      <p className="mt-2 text-sm font-semibold tabular-nums text-foreground/70">
                         {formatToman(app.requestedPrincipal)}
                       </p>
                     </button>
@@ -228,12 +228,12 @@ function Inspector({ application, reduceMotion, onApprove, onReject }: Inspector
       {/* Header */}
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-foreground/10 p-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-primary)]/15 text-[var(--color-primary)]">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/15 text-primary">
             <IdCard className="h-6 w-6" aria-hidden />
           </div>
           <div>
-            <p className="text-sm font-bold text-[var(--color-foreground)]">{application.applicant.fullName}</p>
-            <p className="text-xs text-[var(--color-foreground)]/55" dir="ltr">
+            <p className="text-sm font-bold text-foreground">{application.applicant.fullName}</p>
+            <p className="text-sm text-foreground/55" dir="ltr">
               {application.applicant.nationalId
                 ? toPersianDigits(application.applicant.nationalId)
                 : '—'}{' '}
@@ -241,7 +241,7 @@ function Inspector({ application, reduceMotion, onApprove, onReject }: Inspector
             </p>
           </div>
         </div>
-        <span className={cn('rounded-full border px-3 py-1 text-xs font-bold', RISK_STYLES[risk.band])}>
+        <span className={cn('rounded-full border px-3 py-1 text-sm font-bold', RISK_STYLES[risk.band])}>
           {risk.label} · {toPersianDigits(risk.score)}
         </span>
       </header>
@@ -268,7 +268,7 @@ function Inspector({ application, reduceMotion, onApprove, onReject }: Inspector
             onClick={() => setRejecting(true)}
             disabled={busy !== null}
             whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-            className="flex-1 cursor-pointer rounded-xl border border-[var(--color-destructive)]/40 bg-[var(--color-destructive)]/10 py-3 text-sm font-bold text-[var(--color-destructive)] transition-colors hover:bg-[var(--color-destructive)]/20 disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+            className="flex-1 cursor-pointer rounded-xl border border-destructive/40 bg-destructive/10 py-3 text-sm font-bold text-destructive transition-colors hover:bg-destructive/20 disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             رد درخواست
           </motion.button>
@@ -309,11 +309,11 @@ function Inspector({ application, reduceMotion, onApprove, onReject }: Inspector
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 16, scale: 0.96 }}
                 transition={reduceMotion ? { duration: 0 } : SOFT_SPRING}
-                className="absolute inset-x-4 bottom-4 z-20 rounded-2xl border border-foreground/15 bg-[var(--color-background)]/95 p-4 shadow-2xl"
+                className="absolute inset-x-4 bottom-4 z-20 rounded-2xl border border-foreground/15 bg-background/95 p-4 shadow-2xl"
               >
                 <div className="mb-2 flex items-center justify-between">
-                  <h4 className="flex items-center gap-2 text-sm font-bold text-[var(--color-foreground)]">
-                    <ShieldQuestion className="h-4 w-4 text-[var(--color-destructive)]" aria-hidden />
+                  <h4 className="flex items-center gap-2 text-sm font-bold text-foreground">
+                    <ShieldQuestion className="h-4 w-4 text-destructive" aria-hidden />
                     علت رد مدارک
                   </h4>
                   <button
@@ -321,7 +321,7 @@ function Inspector({ application, reduceMotion, onApprove, onReject }: Inspector
                     onClick={() => setRejecting(false)}
                     disabled={busy !== null}
                     aria-label="بستن"
-                    className="cursor-pointer rounded-lg p-1.5 text-[var(--color-foreground)]/50 hover:bg-foreground/10 disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+                    className="cursor-pointer rounded-lg p-1.5 text-foreground/50 hover:bg-foreground/10 disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     <X className="h-4 w-4" aria-hidden />
                   </button>
@@ -332,16 +332,16 @@ function Inspector({ application, reduceMotion, onApprove, onReject }: Inspector
                   rows={3}
                   autoFocus
                   placeholder="مثلاً: تصویر کارت ملی ناخوانا است یا چک صیادی ثبت نشده."
-                  className="w-full resize-none rounded-xl border border-foreground/10 bg-foreground/5 p-3 text-sm text-[var(--color-foreground)] placeholder:text-[var(--color-foreground)]/30 focus-visible:border-[var(--color-destructive)]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-destructive)]/40"
+                  className="w-full resize-none rounded-xl border border-foreground/10 bg-foreground/5 p-3 text-sm text-foreground placeholder:text-foreground/30 focus-visible:border-destructive/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/40"
                 />
                 <div className="mt-3 flex items-center justify-between gap-2">
-                  <span className="text-[11px] text-[var(--color-foreground)]/40">حداقل ۳ کاراکتر</span>
+                  <span className="text-sm text-foreground/40">حداقل ۳ کاراکتر</span>
                   <motion.button
                     type="button"
                     onClick={handleReject}
                     disabled={remarks.trim().length < 3 || busy !== null}
                     whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-                    className="flex cursor-pointer items-center gap-2 rounded-xl bg-[var(--color-destructive)] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[var(--color-destructive)]/25 transition-[filter] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+                    className="flex cursor-pointer items-center gap-2 rounded-xl bg-destructive px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-destructive/25 transition-[filter] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     {busy === 'reject' && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
                     ثبت رد درخواست
@@ -363,8 +363,8 @@ function Inspector({ application, reduceMotion, onApprove, onReject }: Inspector
 function Fact({ label, value }: { label: string; value: string }): ReactNode {
   return (
     <div className="rounded-xl bg-foreground/5 px-3 py-2">
-      <p className="text-[10px] text-[var(--color-foreground)]/45">{label}</p>
-      <p className="mt-0.5 truncate text-xs font-bold text-[var(--color-foreground)]">{value}</p>
+      <p className="text-sm text-foreground/45">{label}</p>
+      <p className="mt-0.5 truncate text-sm font-bold text-foreground">{value}</p>
     </div>
   );
 }
@@ -379,9 +379,9 @@ function DocumentPane({ title, document, fallbackIcon: FallbackIcon }: DocumentP
   return (
     <figure className="flex flex-col overflow-hidden rounded-2xl border border-foreground/10 bg-black/20">
       <figcaption className="flex items-center justify-between border-b border-foreground/10 bg-foreground/5 px-3 py-2">
-        <span className="text-xs font-bold text-[var(--color-foreground)]/80">{title}</span>
+        <span className="text-sm font-bold text-foreground/80">{title}</span>
         {document && (
-          <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-[10px] text-[var(--color-foreground)]/60">
+          <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-sm text-foreground/60">
             {DOCUMENT_TYPE_LABEL[document.type]}
           </span>
         )}
@@ -396,9 +396,9 @@ function DocumentPane({ title, document, fallbackIcon: FallbackIcon }: DocumentP
             className="h-full w-full object-contain"
           />
         ) : (
-          <div className="flex flex-col items-center gap-2 text-[var(--color-foreground)]/30">
+          <div className="flex flex-col items-center gap-2 text-foreground/30">
             <FallbackIcon className="h-8 w-8" aria-hidden />
-            <span className="text-xs">مدرکی بارگذاری نشده</span>
+            <span className="text-sm">مدرکی بارگذاری نشده</span>
           </div>
         )}
       </div>
@@ -408,7 +408,7 @@ function DocumentPane({ title, document, fallbackIcon: FallbackIcon }: DocumentP
 
 function EmptyState({ icon: Icon, text }: { icon: typeof Inbox; text: string }): ReactNode {
   return (
-    <div className="flex flex-col items-center gap-3 p-8 text-center text-[var(--color-foreground)]/40">
+    <div className="flex flex-col items-center gap-3 p-8 text-center text-foreground/40">
       <Icon className="h-10 w-10" aria-hidden />
       <p className="text-sm">{text}</p>
     </div>

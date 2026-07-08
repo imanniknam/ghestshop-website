@@ -90,7 +90,7 @@ const DUE_ROWS: DueRow[] = [
 
 const STATUS_STYLE: Record<DueStatus, string> = {
   'پرداخت شده': 'bg-emerald-500/15 text-emerald-400',
-  معوقه: 'bg-[var(--color-destructive)]/15 text-[var(--color-destructive)]',
+  معوقه: 'bg-destructive/15 text-destructive',
   'در انتظار': 'bg-amber-400/15 text-amber-300',
 };
 
@@ -100,7 +100,7 @@ export default function AdminPage(): ReactNode {
   return (
     <main dir="rtl" className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-8 sm:px-6 lg:px-8">
       <header className="flex items-center gap-3">
-        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F59E0B] to-[#7C3AED] text-white">
+        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#407DC0] to-[#38BDF8] text-white">
           <ShieldQuestion className="h-6 w-6" aria-hidden />
         </span>
         <div>
@@ -133,7 +133,7 @@ function WeeklyCollection(): ReactNode {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[40rem] text-right text-sm">
             <thead>
-              <tr className="border-b border-foreground/10 text-[11px] text-foreground/45">
+              <tr className="border-b border-foreground/10 text-sm text-foreground/45">
                 <th className="px-5 py-3 font-medium">نام مشتری</th>
                 <th className="px-5 py-3 font-medium">دستگاه</th>
                 <th className="px-5 py-3 font-medium">سررسید (شمسی)</th>
@@ -153,7 +153,7 @@ function WeeklyCollection(): ReactNode {
                   </td>
                   <td className="px-5 py-3 font-bold tabular-nums text-foreground">{formatToman(row.amount, { withSuffix: false })}</td>
                   <td className="px-5 py-3">
-                    <span className={cn('inline-block rounded-full px-2.5 py-0.5 text-[11px] font-bold', STATUS_STYLE[row.status])}>
+                    <span className={cn('inline-block rounded-full px-2.5 py-0.5 text-sm font-bold', STATUS_STYLE[row.status])}>
                       {row.status}
                     </span>
                   </td>
@@ -192,23 +192,23 @@ function CmsCreator(): ReactNode {
         {/* Form */}
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">
-            <span className="text-xs text-foreground/55">نام / مدل محصول</span>
+            <span className="text-sm text-foreground/55">نام / مدل محصول</span>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="مثلاً: آیفون ۱۶ پرو مکس"
-              className="h-11 rounded-xl border border-foreground/15 bg-foreground/[0.04] px-3 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:border-[#F59E0B]/50"
+              className="h-11 rounded-xl border border-foreground/15 bg-foreground/[0.04] px-3 text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:border-[#407DC0]/50"
             />
           </label>
           <label className="flex flex-col gap-1.5">
-            <span className="text-xs text-foreground/55">قیمت نقدی (تومان)</span>
+            <span className="text-sm text-foreground/55">قیمت نقدی (تومان)</span>
             <input
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               inputMode="numeric"
               dir="ltr"
               placeholder="78000000"
-              className="h-11 rounded-xl border border-foreground/15 bg-foreground/[0.04] px-3 text-left text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:border-[#F59E0B]/50"
+              className="h-11 rounded-xl border border-foreground/15 bg-foreground/[0.04] px-3 text-left text-sm text-foreground transition-colors focus-visible:outline-none focus-visible:border-[#407DC0]/50"
             />
           </label>
 
@@ -217,9 +217,9 @@ function CmsCreator(): ReactNode {
             onClick={generate}
             disabled={name.trim().length < 2 || generating}
             className={cn(
-              'inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-[#F59E0B] to-[#7C3AED] py-3 text-sm font-bold text-white',
-              'shadow-lg shadow-[#7C3AED]/25 transition-[filter] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+              'inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-[#407DC0] to-[#38BDF8] py-3 text-sm font-bold text-white',
+              'shadow-lg shadow-[#38BDF8]/25 transition-[filter] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
             )}
           >
             <Sparkles className={cn('h-4 w-4', generating && 'animate-pulse')} aria-hidden />
@@ -232,7 +232,7 @@ function CmsCreator(): ReactNode {
             disabled={!content}
             className={cn(
               'inline-flex items-center justify-center gap-2 rounded-xl border border-foreground/15 py-2.5 text-sm font-bold text-foreground transition-colors',
-              'hover:bg-foreground/5 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+              'hover:bg-foreground/5 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
             )}
           >
             <PlusCircle className="h-4 w-4" aria-hidden />
@@ -250,19 +250,19 @@ function CmsCreator(): ReactNode {
               transition={{ duration: 0.4, ease: EASE_EXPO }}
               className="flex flex-col gap-3"
             >
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#7C3AED]/15 px-2.5 py-1 text-[11px] font-bold text-[#a78bfa]">
+              <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#407DC0]/12 px-2.5 py-1 text-sm font-bold text-gold">
                 <Sparkles className="h-3 w-3" aria-hidden />
                 خروجی هوش مصنوعی
               </span>
               <p className="text-sm font-black text-foreground">{content.tagline}</p>
-              <p className="text-xs leading-relaxed text-foreground/70">{content.description}</p>
+              <p className="text-sm leading-relaxed text-foreground/70">{content.description}</p>
               <div className="flex flex-col gap-1.5">
-                <span className="text-[11px] font-bold text-foreground/50">دسته‌بندی: {content.category}</span>
+                <span className="text-sm font-bold text-foreground/50">دسته‌بندی: {content.category}</span>
                 <div className="grid grid-cols-2 gap-1.5">
                   {content.specs.map((spec) => (
                     <div key={spec.label} className="flex items-center justify-between rounded-lg bg-foreground/[0.04] px-2.5 py-1.5">
-                      <span className="text-[10px] text-foreground/50">{spec.label}</span>
-                      <span className="text-[11px] font-bold text-foreground">{spec.value}</span>
+                      <span className="text-sm text-foreground/50">{spec.label}</span>
+                      <span className="text-sm font-bold text-foreground">{spec.value}</span>
                     </div>
                   ))}
                 </div>
@@ -271,7 +271,7 @@ function CmsCreator(): ReactNode {
           ) : (
             <div className="flex flex-1 flex-col items-center justify-center gap-2 py-8 text-center text-foreground/40">
               <Wand2 className="h-8 w-8" aria-hidden />
-              <p className="text-xs">نام محصول را وارد کنید و دکمه‌ی تولید محتوا را بزنید تا توضیحات و مشخصات به‌صورت خودکار ساخته شوند.</p>
+              <p className="text-sm">نام محصول را وارد کنید و دکمه‌ی تولید محتوا را بزنید تا توضیحات و مشخصات به‌صورت خودکار ساخته شوند.</p>
             </div>
           )}
         </div>
@@ -283,7 +283,7 @@ function CmsCreator(): ReactNode {
 function SectionTitle({ icon: Icon, title }: { icon: typeof CalendarRange; title: string }): ReactNode {
   return (
     <div className="flex items-center gap-2">
-      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
         <Icon className="h-5 w-5" aria-hidden />
       </span>
       <h2 className="text-lg font-black tracking-tight text-foreground">{title}</h2>

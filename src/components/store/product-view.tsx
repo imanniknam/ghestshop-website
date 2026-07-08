@@ -75,7 +75,7 @@ export function ProductView({ detail }: { detail: ProductDetail }): ReactNode {
 
           {variants.length > 0 && (
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs text-foreground/55">رنگ:</span>
+              <span className="text-sm text-foreground/55">رنگ:</span>
               {variants.map((v) => (
                 <button
                   key={v.color}
@@ -86,15 +86,15 @@ export function ProductView({ detail }: { detail: ProductDetail }): ReactNode {
                   title={v.color}
                   className={cn(
                     'h-7 w-7 cursor-pointer rounded-full border transition-transform',
-                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
                     color === v.color
-                      ? 'scale-110 border-[#F59E0B] ring-2 ring-[#F59E0B]/40'
+                      ? 'scale-110 border-[#407DC0] ring-2 ring-[#407DC0]/40'
                       : 'border-foreground/20 hover:scale-105',
                   )}
                   style={{ backgroundColor: swatchHex(v.color) }}
                 />
               ))}
-              <span className="mr-1 text-xs text-foreground/70">{color}</span>
+              <span className="mr-1 text-sm text-foreground/70">{color}</span>
             </div>
           )}
 
@@ -147,7 +147,7 @@ export function ProductView({ detail }: { detail: ProductDetail }): ReactNode {
                 glassClass('hero', 'flex w-[min(22rem,90vw)] flex-col items-center gap-4 rounded-3xl p-8 text-center'),
               )}
             >
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F59E0B]/15 text-gold">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#407DC0]/15 text-gold">
                 <Loader2 className="h-7 w-7 animate-spin" aria-hidden />
               </span>
               <div>
@@ -156,7 +156,7 @@ export function ProductView({ detail }: { detail: ProductDetail }): ReactNode {
                   {formatToman(pending.monthlyPayment, { withSuffix: false })}
                   <span className="mr-1 text-sm font-bold text-foreground/60">تومان / ماه</span>
                 </p>
-                <p className="mt-1 text-xs text-foreground/50">
+                <p className="mt-1 text-sm text-foreground/50">
                   {toPersianDigits(pending.months)} قسط · {product.title}
                 </p>
               </div>
@@ -178,8 +178,8 @@ function SpecChip({ icon: Icon, label, value }: SpecChipProps): ReactNode {
   return (
     <span className={cn('flex items-center gap-2 rounded-xl px-3 py-2', glassInset)}>
       <Icon className="h-4 w-4 text-gold" aria-hidden />
-      <span className="text-[11px] text-foreground/50">{label}:</span>
-      <span className="text-xs font-bold text-foreground">{value}</span>
+      <span className="text-sm text-foreground/50">{label}:</span>
+      <span className="text-sm font-bold text-foreground">{value}</span>
     </span>
   );
 }

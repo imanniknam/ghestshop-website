@@ -11,10 +11,11 @@ import './globals.css';
 
 /**
  * Pre-paint theme init — runs synchronously before the body renders so the
- * correct `.dark` class is on <html> before first paint (no flash). Honours a
- * stored choice, otherwise follows the OS preference.
+ * correct `.dark` class is on <html> before first paint (no flash). Honours an
+ * explicit stored choice, otherwise defaults to LIGHT mode (we intentionally do
+ * NOT follow the OS `prefers-color-scheme` — light is the default experience).
  */
-const THEME_INIT = `(function(){try{var k='ghestshop-theme';var s=localStorage.getItem(k);var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;var e=document.documentElement;e.classList.toggle('dark',d);e.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
+const THEME_INIT = `(function(){try{var k='ghestshop-theme';var s=localStorage.getItem(k);var d=s==='dark';var e=document.documentElement;e.classList.toggle('dark',d);e.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
 
 /**
  * Primary Persian UI face — Vazirmatn (variable). Exposed as --font-vazir.
@@ -25,6 +26,7 @@ const vazirmatn = Vazirmatn({
   subsets: ['arabic', 'latin'],
   variable: '--font-vazir',
   display: 'swap',
+  weight: ['400', '500', '600', '700'],
 });
 
 const ibmPlexSans = IBM_Plex_Sans({
@@ -36,11 +38,11 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'قسط‌شاپ | خرید اقساطی موبایل و کالای دیجیتال',
-    template: '%s | قسط‌شاپ',
+    default: 'قسط شاپ | خرید اقساطی موبایل و کالای دیجیتال',
+    template: '%s | قسط شاپ',
   },
   description:
-    'پلتفرم خرید اقساطی موبایل و کالای دیجیتال با اعتبارسنجی هوشمند، مدیریت اقساط و پرداخت آنلاین.',
+    'خرید گوشی قسطی سامسونگ، شیائومی و اپل در شیراز و جهرم. فروش اقساطی موبایل با اعتبارسنجی هوشمند و شرایط شفاف.',
   applicationName: 'GhestShop',
   formatDetection: { telephone: false },
 };
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0F172A',
+  themeColor: '#407DC0',
 };
 
 export default function RootLayout({
@@ -56,7 +58,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>): React.ReactNode {
   return (
     <html lang="fa" dir="rtl" suppressHydrationWarning className={cn(vazirmatn.variable, ibmPlexSans.variable)}>
-      <body className="flex min-h-dvh flex-col bg-background bg-glass-radial bg-fixed text-foreground antialiased">
+      <body
+        className={cn(
+          vazirmatn.className,
+          'flex min-h-dvh flex-col bg-background bg-brand-aura bg-fixed font-sans text-body text-foreground antialiased',
+        )}
+      >
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <SmoothScrollProvider>
           <Header />

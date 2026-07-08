@@ -1,83 +1,74 @@
 /**
- * GhestShop — Tiered "Liquid Glass" Utility Matrix
+ * GhestShop — Surface System  ("Clarity")
  * ------------------------------------------------------------------
- * Glassmorphism is GPU-expensive: every `backdrop-filter` layer forces the
- * compositor to re-sample the pixels behind it. On a dense product grid that
- * tanks scroll FPS on mid-range devices. To keep the look without the cost we
- * split glass into THREE tiers and apply real blur only where it earns its
- * keep (≤3 hero surfaces per viewport).
+ * The old build leaned on GPU-expensive glassmorphism (stacked backdrop-blur).
+ * The redesign replaces that with a clean, opaque surface system: solid
+ * theme-aware fills, hairline borders, and a soft neutral elevation scale.
+ * This composites for free while scrolling and reads far more trustworthy for
+ * a financial product.
  *
- *   • glassHero  — REAL backdrop-blur. Reserve for overlays, modals, the cart
- *                  sheet, and the landing hero. Never on repeated list items.
- *   • glassCard  — FAUX glass. A semi-opaque slate fill + hairline border +
- *                  deep shadow. Visually reads as glass when stationary but has
- *                  ZERO backdrop-filter, so it composites for free while
- *                  scrolling. Use on product cards / list rows / any N-of-many.
- *   • glassInset — Flat translucent accent for badges, chips, and nested nodes.
+ * The historical export names are preserved (glassHero / glassCard / glassInset
+ * / glassSheen / glass / glassClass) so existing call-sites keep working — only
+ * the visual values changed. Prefer the `surface*` aliases in new code.
  *
- * Consume via the `glass` object or the named exports, and compose extra
- * utilities through `glassClass(tier, ...extra)`.
+ *   • surfaceRaised (hero)  — overlays, modals, sheets, hero panels. Highest
+ *                             elevation: solid surface + float shadow.
+ *   • surfaceCard  (card)   — product cards / list rows / any N-of-many.
+ *                             Solid surface + soft card shadow, hover-ready.
+ *   • surfaceInset (inset)  — badges, chips, nested fills (brand-tinted).
  */
 
 import { cn } from '@/lib/utils';
 
 export type GlassTier = 'hero' | 'card' | 'inset';
 
-/**
- * REAL backdrop blur — overlays, modals, sheets, hero (≤3 per viewport).
- * Light: luminous frosted white. Dark: faint translucent charcoal.
- *
- * Upgraded per the ui-ux-pro-max glassmorphism spec: backdrop-saturate for
- * richer light transmission + a 1px top "light-source reflection" (inset
- * highlight) composited with the depth drop-shadow for true Z-depth.
- */
-export const glassHero =
-  'backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 ' +
-  'bg-white/50 border border-white/60 ' +
-  'shadow-[0_10px_40px_-12px_rgba(15,23,42,0.18),inset_0_1px_0_0_rgba(255,255,255,0.7)] ' +
-  'dark:bg-white/[0.04] dark:border-white/[0.12] ' +
-  'dark:shadow-[0_16px_50px_-12px_rgba(0,0,0,0.55),inset_0_1px_0_0_rgba(255,255,255,0.08)]';
+/** Highest elevation — overlays, modals, sheets, hero panels. */
+export const surfaceRaised =
+  'bg-surface border border-border ' +
+  'shadow-[0_24px_60px_-24px_rgba(15,29,48,0.28)] ' +
+  'transition-colors duration-300';
 
-/**
- * FAUX glass — high-density rendering, NO backdrop-filter (GPU-cheap).
- * Light: soft white card with hardware drop shadow. Dark: slate glass.
- * Carries the same light-reflection highlight for premium depth — for free,
- * since it composites in a single box-shadow declaration.
- */
-export const glassCard =
-  'border transition-colors duration-300 ' +
-  'bg-white/70 border-slate-200/80 ' +
-  'shadow-[0_8px_30px_-10px_rgba(15,23,42,0.15),inset_0_1px_0_0_rgba(255,255,255,0.6)] ' +
-  'dark:bg-[#1E293B]/40 dark:border-white/[0.06] ' +
-  'dark:shadow-[0_12px_40px_-12px_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.05)]';
+/** Standard elevation — cards, list rows, repeated content. */
+export const surfaceCard =
+  'bg-surface border border-border ' +
+  'shadow-[0_1px_2px_rgba(15,29,48,0.04),0_8px_24px_-12px_rgba(15,29,48,0.12)] ' +
+  'transition-[box-shadow,border-color,transform,background-color] duration-300';
 
-/** Flat translucent accent — badges, chips, nested nodes. */
-export const glassInset =
+/** Flat brand-tinted accent — badges, chips, nested nodes. */
+export const surfaceInset =
   'transition-colors duration-300 ' +
-  'bg-slate-900/[0.05] text-slate-700 ' +
-  'dark:bg-white/[0.06] dark:text-slate-200';
+  'bg-primary/[0.08] text-gold dark:bg-primary/[0.16]';
 
 /**
- * Optional decorative sheen overlay for faux-glass cards. Pair with
- * `glassCard` on a `relative` element to fake the light-refraction highlight a
- * real blur would give — still free to composite.
+ * Subtle top light-edge for raised surfaces. Kept minimal so surfaces read as
+ * solid material, not decorative glass.
  */
-export const glassSheen =
-  'before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] ' +
-  'before:bg-gradient-to-br before:from-white/[0.08] before:to-transparent before:opacity-60';
+export const surfaceSheen =
+  'before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-px before:rounded-t-[inherit] ' +
+  'before:bg-gradient-to-l before:from-transparent before:via-white/70 before:to-transparent before:opacity-70 ' +
+  'dark:before:via-white/10';
+
+// ---- Back-compat aliases (old names → new surfaces) -----------------------
+export const glassHero = surfaceRaised;
+export const glassCard = surfaceCard;
+export const glassInset = surfaceInset;
+export const glassSheen = surfaceSheen;
 
 export const glass = {
-  hero: glassHero,
-  card: glassCard,
-  inset: glassInset,
+  hero: surfaceRaised,
+  card: surfaceCard,
+  inset: surfaceInset,
 } as const satisfies Record<GlassTier, string>;
 
 /**
- * Resolve a glass tier and merge any extra utility classes. Keeps consumers
- * from hard-coding blur values ad-hoc (which is how perf regressions creep in).
+ * Resolve a surface tier and merge extra utility classes.
  *
  * @example glassClass('card', 'rounded-3xl p-4')
  */
 export function glassClass(tier: GlassTier, ...extra: Array<string | undefined | false | null>): string {
   return cn(glass[tier], ...extra);
 }
+
+/** Preferred alias for new code. */
+export const surface = glass;
+export const surfaceClass = glassClass;

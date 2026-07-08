@@ -76,7 +76,7 @@ export interface HeroBentoProps {
 
 export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps): ReactNode {
   const reduceMotion = Boolean(useReducedMotion());
-  const glow = usePointerGlow({ size: 460, color: 'rgba(245,158,11,0.16)' });
+  const glow = usePointerGlow({ size: 460, color: 'rgba(64,125,192,0.16)' });
 
   // Mouse-parallax for the ambient blobs (subtle counter-drift for depth).
   const blobAX = useTransform(glow.mx, [0, 100], [16, -16]);
@@ -113,12 +113,12 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
         <motion.div
           aria-hidden
           style={reduceMotion ? undefined : { x: blobAX, y: blobAY }}
-          className="pointer-events-none absolute -left-20 -top-20 h-60 w-60 rounded-full bg-[#F59E0B]/20 blur-3xl"
+          className="pointer-events-none absolute -left-20 -top-20 h-60 w-60 rounded-full bg-[#407DC0]/20 blur-3xl"
         />
         <motion.div
           aria-hidden
           style={reduceMotion ? undefined : { x: blobBX, y: blobBY }}
-          className="pointer-events-none absolute -bottom-24 -right-10 h-60 w-60 rounded-full bg-[#7C3AED]/20 blur-3xl"
+          className="pointer-events-none absolute -bottom-24 -right-10 h-60 w-60 rounded-full bg-[#38BDF8]/20 blur-3xl"
         />
 
         <div className="relative z-10">
@@ -126,7 +126,7 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={reveal(0.15)}
-            className="inline-flex items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-1 text-xs font-semibold text-gold"
+            className="inline-flex items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-1 text-sm font-semibold text-gold"
           >
             <Sparkles className="h-3.5 w-3.5" />
             خرید اقساطی هوشمند
@@ -137,7 +137,7 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
               جدیدترین موبایل و کالای دیجیتال،
             </RevealLine>
             <RevealLine delay={0.36} reduceMotion={reduceMotion}>
-              <span className="bg-gradient-to-l from-[#F59E0B] to-[#7C3AED] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-l from-[#407DC0] to-[#38BDF8] bg-clip-text text-transparent">
                 با اقساط بدون دغدغه
               </span>
             </RevealLine>
@@ -162,9 +162,9 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
           <Link
             href="/brand/apple"
             className={cn(
-              'inline-flex items-center gap-2 rounded-xl bg-[#F59E0B] px-6 py-3 text-sm font-bold text-[#1C1917]',
-              'shadow-lg shadow-[#F59E0B]/25 transition-[filter] hover:brightness-110',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+              'inline-flex items-center gap-2 rounded-xl bg-[#407DC0] px-6 py-3 text-sm font-bold text-white',
+              'shadow-lg shadow-[#407DC0]/25 transition-[filter] hover:brightness-110',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
             )}
           >
             شروع خرید اقساطی
@@ -174,7 +174,7 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
             href="/apply"
             className={cn(
               'inline-flex items-center gap-2 rounded-xl border border-foreground/15 px-6 py-3 text-sm font-bold text-foreground',
-              'transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+              'transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
             )}
           >
             اعتبارسنجی رایگان
@@ -188,15 +188,15 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
           href="/apply"
           className={cn(
             glassClass('card', 'group flex h-full flex-col justify-between gap-4 rounded-3xl p-6'),
-            'transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+            'transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
           )}
         >
-          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#7C3AED]/20 text-[#7C3AED]">
+          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#407DC0]/12 text-gold">
             <Calculator className="h-6 w-6" aria-hidden />
           </span>
           <div>
             <h2 className="text-base font-bold text-foreground">محاسبه‌گر اقساط</h2>
-            <p className="mt-1 text-xs text-foreground/55">مبلغ قسط ماهانه خود را پیش از خرید برآورد کنید.</p>
+            <p className="mt-1 text-sm text-foreground/55">مبلغ قسط ماهانه خود را پیش از خرید برآورد کنید.</p>
           </div>
           <span className="inline-flex items-center gap-1 text-sm font-bold text-gold">
             محاسبه کنید
@@ -210,7 +210,7 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
         {...fade(0.28)}
         className={cn(glassClass('card', 'flex flex-col justify-between gap-3 rounded-3xl p-6'), 'md:col-span-1')}
       >
-        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F59E0B]/15 text-gold">
+        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#407DC0]/15 text-gold">
           <TrendingUp className="h-6 w-6" aria-hidden />
         </span>
         <div>
@@ -218,7 +218,7 @@ export function HeroBento({ capitalBillion = 4_850, className }: HeroBentoProps)
             <MetricCounter value={capitalBillion} reduceMotion={reduceMotion} />
             <span className="mr-1 text-sm font-bold text-foreground/60">میلیارد تومان</span>
           </p>
-          <p className="mt-1 text-xs text-foreground/55">سرمایه تأمین‌شده برای مشتریان</p>
+          <p className="mt-1 text-sm text-foreground/55">سرمایه تأمین‌شده برای مشتریان</p>
         </div>
       </motion.div>
     </section>

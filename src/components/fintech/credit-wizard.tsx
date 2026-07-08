@@ -272,11 +272,11 @@ export function CreditWizard({ onSubmit, className }: CreditWizardProps): ReactN
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[var(--color-primary)]/25 blur-3xl"
+        className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-primary/25 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-[var(--color-accent)]/20 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-accent/20 blur-3xl"
       />
 
       <div className="relative z-10 flex flex-col gap-7">
@@ -337,8 +337,8 @@ export function CreditWizard({ onSubmit, className }: CreditWizardProps): ReactN
               disabled={step === 0}
               className={cn(
                 'inline-flex items-center gap-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors',
-                'text-[var(--color-foreground)]/70 hover:text-[var(--color-foreground)]',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
+                'text-foreground/70 hover:text-foreground',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                 'disabled:cursor-not-allowed disabled:opacity-30',
                 step > 0 && 'cursor-pointer',
               )}
@@ -355,9 +355,9 @@ export function CreditWizard({ onSubmit, className }: CreditWizardProps): ReactN
               transition={SPRING}
               className={cn(
                 'inline-flex cursor-pointer items-center gap-1 rounded-xl px-6 py-2.5 text-sm font-bold transition-[filter]',
-                'bg-[var(--color-primary)] text-[var(--color-on-primary)]',
-                'shadow-lg shadow-[var(--color-primary)]/30 hover:brightness-110',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+                'bg-primary text-primary-foreground',
+                'shadow-lg shadow-primary/30 hover:brightness-110',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
               )}
             >
               {step === 1 ? 'ثبت و بررسی' : 'مرحله بعد'}
@@ -392,9 +392,9 @@ function Stepper({ current, transition }: { current: StepIndex; transition: Tran
                   transition={transition}
                   className={cn(
                     'flex h-11 w-11 items-center justify-center rounded-2xl border transition-colors',
-                    isDone && 'border-transparent bg-[var(--color-primary)] text-[var(--color-on-primary)]',
-                    isActive && 'border-[var(--color-primary)] bg-[var(--color-primary)]/15 text-[var(--color-primary)]',
-                    !isDone && !isActive && 'border-foreground/15 bg-foreground/5 text-[var(--color-foreground)]/40',
+                    isDone && 'border-transparent bg-primary text-primary-foreground',
+                    isActive && 'border-primary bg-primary/15 text-primary',
+                    !isDone && !isActive && 'border-foreground/15 bg-foreground/5 text-foreground/40',
                   )}
                 >
                   {isDone ? (
@@ -405,8 +405,8 @@ function Stepper({ current, transition }: { current: StepIndex; transition: Tran
                 </motion.div>
                 <span
                   className={cn(
-                    'text-[11px] font-medium',
-                    isActive ? 'text-[var(--color-foreground)]' : 'text-[var(--color-foreground)]/45',
+                    'text-sm font-medium',
+                    isActive ? 'text-foreground' : 'text-foreground/45',
                   )}
                 >
                   {s.title}
@@ -420,7 +420,7 @@ function Stepper({ current, transition }: { current: StepIndex; transition: Tran
                     animate={{ scaleX: isDone ? 1 : 0 }}
                     transition={transition}
                     style={{ originX: 1 }} // grows from the right (RTL)
-                    className="absolute inset-0 rounded-full bg-[var(--color-primary)]"
+                    className="absolute inset-0 rounded-full bg-primary"
                   />
                 </div>
               )}
@@ -500,15 +500,15 @@ function BasicInfoStep({
             aria-invalid={Boolean(errors.monthlyIncome)}
             className={inputClass(Boolean(errors.monthlyIncome), 'pl-16')}
           />
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-xs text-[var(--color-foreground)]/50">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-foreground/50">
             تومان
           </span>
         </div>
       </Field>
 
       <fieldset className="flex flex-col gap-2">
-        <legend className="mb-1 text-sm font-medium text-[var(--color-foreground)]/80">
-          نوع اشتغال <span className="text-[var(--color-primary)]">*</span>
+        <legend className="mb-1 text-sm font-medium text-foreground/80">
+          نوع اشتغال <span className="text-primary">*</span>
         </legend>
         <div className="grid grid-cols-2 gap-2">
           {EMPLOYMENT_TYPES.map((opt) => {
@@ -522,10 +522,10 @@ function BasicInfoStep({
                 onClick={() => onEmployment(opt.value)}
                 className={cn(
                   'cursor-pointer rounded-xl border px-3 py-3 text-right text-sm font-medium transition-colors',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                   active
-                    ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/15 text-[var(--color-foreground)]'
-                    : 'border-foreground/10 bg-foreground/5 text-[var(--color-foreground)]/65 hover:border-foreground/25',
+                    ? 'border-primary bg-primary/15 text-foreground'
+                    : 'border-foreground/10 bg-foreground/5 text-foreground/65 hover:border-foreground/25',
                 )}
               >
                 {opt.label}
@@ -553,7 +553,7 @@ interface DocumentStepProps {
 function DocumentStep({ documents, onFile, onRemove, error }: DocumentStepProps): ReactNode {
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm text-[var(--color-foreground)]/60">
+      <p className="text-sm text-foreground/60">
         تصاویر واضح و خوانا بارگذاری کنید. حداکثر حجم هر فایل{' '}
         {toPersianDigits((MAX_FILE_BYTES / (1024 * 1024)).toFixed(0))} مگابایت.
       </p>
@@ -581,7 +581,7 @@ function DocumentStep({ documents, onFile, onRemove, error }: DocumentStepProps)
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={SOFT_SPRING}
-            className="flex items-center gap-2 rounded-xl border border-[var(--color-destructive)]/40 bg-[var(--color-destructive)]/10 px-3 py-2 text-xs font-medium text-[var(--color-destructive)]"
+            className="flex items-center gap-2 rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive"
           >
             <TriangleAlert className="h-4 w-4 shrink-0" aria-hidden />
             {error}
@@ -623,22 +623,22 @@ function DropZone({ label, hint, required, doc, onFile, onRemove }: DropZoneProp
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={SPRING}
-        className="flex items-center gap-3 rounded-2xl border border-[var(--color-primary)]/40 bg-[var(--color-primary)]/10 p-3"
+        className="flex items-center gap-3 rounded-2xl border border-primary/40 bg-primary/10 p-3"
       >
         <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-black/20">
           {doc.isImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={doc.previewUrl} alt={`پیش‌نمایش ${label}`} className="h-full w-full object-cover" />
           ) : (
-            <FileText className="h-6 w-6 text-[var(--color-primary)]" aria-hidden />
+            <FileText className="h-6 w-6 text-primary" aria-hidden />
           )}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="flex items-center gap-1 text-sm font-semibold text-[var(--color-foreground)]">
-            <CheckCircle2 className="h-4 w-4 text-[var(--color-primary)]" aria-hidden />
+          <p className="flex items-center gap-1 text-sm font-semibold text-foreground">
+            <CheckCircle2 className="h-4 w-4 text-primary" aria-hidden />
             {label}
           </p>
-          <p className="truncate text-xs text-[var(--color-foreground)]/50" dir="ltr">
+          <p className="truncate text-sm text-foreground/50" dir="ltr">
             {doc.file.name} · {formatBytes(doc.file.size)}
           </p>
         </div>
@@ -646,7 +646,7 @@ function DropZone({ label, hint, required, doc, onFile, onRemove }: DropZoneProp
           type="button"
           onClick={onRemove}
           aria-label={`حذف ${label}`}
-          className="cursor-pointer rounded-lg p-2 text-[var(--color-foreground)]/50 transition-colors hover:bg-[var(--color-destructive)]/15 hover:text-[var(--color-destructive)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+          className="cursor-pointer rounded-lg p-2 text-foreground/50 transition-colors hover:bg-destructive/15 hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <Trash2 className="h-4 w-4" aria-hidden />
         </button>
@@ -675,23 +675,23 @@ function DropZone({ label, hint, required, doc, onFile, onRemove }: DropZoneProp
       aria-label={`بارگذاری ${label}`}
       className={cn(
         'group flex cursor-pointer items-center gap-3 rounded-2xl border-2 border-dashed p-4 transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
         isDragging
-          ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10'
-          : 'border-foreground/15 bg-foreground/5 hover:border-[var(--color-primary)]/50 hover:bg-foreground/10',
+          ? 'border-primary bg-primary/10'
+          : 'border-foreground/15 bg-foreground/5 hover:border-primary/50 hover:bg-foreground/10',
       )}
     >
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-foreground/10 text-[var(--color-foreground)]/60 transition-colors group-hover:text-[var(--color-primary)]">
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-foreground/10 text-foreground/60 transition-colors group-hover:text-primary">
         <CloudUpload className="h-5 w-5" aria-hidden />
       </div>
       <div className="flex-1">
-        <p className="text-sm font-semibold text-[var(--color-foreground)]">
+        <p className="text-sm font-semibold text-foreground">
           {label}
-          {required && <span className="mr-1 text-[var(--color-primary)]">*</span>}
+          {required && <span className="mr-1 text-primary">*</span>}
         </p>
-        <p className="text-xs text-[var(--color-foreground)]/50">{hint}</p>
+        <p className="text-sm text-foreground/50">{hint}</p>
       </div>
-      <span className="hidden text-xs font-medium text-[var(--color-primary)] sm:inline">
+      <span className="hidden text-sm font-medium text-primary sm:inline">
         انتخاب فایل
       </span>
       <input
@@ -768,11 +768,11 @@ function ReviewStep({ result, onSubmit, reduceMotion }: ReviewStepProps): ReactN
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={SPRING}
-        className="relative flex h-20 w-20 items-center justify-center rounded-full bg-[var(--color-primary)]/15"
+        className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary/15"
       >
         {!completed && !reduceMotion && (
           <motion.span
-            className="absolute inset-0 rounded-full border-2 border-[var(--color-primary)]/40"
+            className="absolute inset-0 rounded-full border-2 border-primary/40"
             animate={{ scale: [1, 1.35], opacity: [0.6, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeOut' }}
           />
@@ -785,21 +785,21 @@ function ReviewStep({ result, onSubmit, reduceMotion }: ReviewStepProps): ReactN
               animate={{ scale: 1, rotate: 0 }}
               transition={SPRING}
             >
-              <CheckCircle2 className="h-10 w-10 text-[var(--color-primary)]" aria-hidden />
+              <CheckCircle2 className="h-10 w-10 text-primary" aria-hidden />
             </motion.span>
           ) : (
             <motion.span key="loading">
-              <Loader2 className="h-9 w-9 animate-spin text-[var(--color-primary)]" aria-hidden />
+              <Loader2 className="h-9 w-9 animate-spin text-primary" aria-hidden />
             </motion.span>
           )}
         </AnimatePresence>
       </motion.div>
 
       <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-bold text-[var(--color-foreground)]">
+        <h3 className="text-lg font-bold text-foreground">
           {completed ? 'درخواست شما ثبت شد' : 'در حال بررسی اطلاعات…'}
         </h3>
-        <p className="max-w-sm text-sm text-[var(--color-foreground)]/55">
+        <p className="max-w-sm text-sm text-foreground/55">
           {completed
             ? 'اعتبارسنجی اولیه با موفقیت انجام شد. نتیجه نهایی پس از تأیید کارشناس از طریق پیامک اطلاع‌رسانی می‌شود.'
             : 'لطفاً تا تکمیل فرایند اعتبارسنجی شکیبا باشید.'}
@@ -821,9 +821,9 @@ function ReviewStep({ result, onSubmit, reduceMotion }: ReviewStepProps): ReactN
               <span
                 className={cn(
                   'flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-colors',
-                  resolved === 'done' && 'border-transparent bg-[var(--color-primary)] text-[var(--color-on-primary)]',
-                  resolved === 'syncing' && 'border-[var(--color-primary)] text-[var(--color-primary)]',
-                  resolved === 'idle' && 'border-foreground/15 text-[var(--color-foreground)]/30',
+                  resolved === 'done' && 'border-transparent bg-primary text-primary-foreground',
+                  resolved === 'syncing' && 'border-primary text-primary',
+                  resolved === 'idle' && 'border-foreground/15 text-foreground/30',
                 )}
               >
                 {resolved === 'done' ? (
@@ -831,15 +831,15 @@ function ReviewStep({ result, onSubmit, reduceMotion }: ReviewStepProps): ReactN
                 ) : resolved === 'syncing' ? (
                   <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
                 ) : (
-                  <span className="text-[11px] tabular-nums">{toPersianDigits(index + 1)}</span>
+                  <span className="text-sm tabular-nums">{toPersianDigits(index + 1)}</span>
                 )}
               </span>
               <span
                 className={cn(
                   'text-sm transition-colors',
                   resolved === 'idle'
-                    ? 'text-[var(--color-foreground)]/40'
-                    : 'text-[var(--color-foreground)]/85',
+                    ? 'text-foreground/40'
+                    : 'text-foreground/85',
                 )}
               >
                 {stage}
@@ -858,12 +858,12 @@ function ReviewStep({ result, onSubmit, reduceMotion }: ReviewStepProps): ReactN
 
 function inputClass(hasError: boolean, extra?: string): string {
   return cn(
-    'w-full rounded-xl border bg-foreground/5 px-4 py-3 text-sm text-[var(--color-foreground)]',
-    'placeholder:text-[var(--color-foreground)]/30 transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
+    'w-full rounded-xl border bg-foreground/5 px-4 py-3 text-sm text-foreground',
+    'placeholder:text-foreground/30 transition-colors',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
     hasError
-      ? 'border-[var(--color-destructive)]/60'
-      : 'border-foreground/10 hover:border-foreground/25 focus:border-[var(--color-primary)]/60',
+      ? 'border-destructive/60'
+      : 'border-foreground/10 hover:border-foreground/25 focus:border-primary/60',
     extra,
   );
 }
@@ -880,9 +880,9 @@ interface FieldProps {
 function Field({ id, label, required, error, helper, children }: FieldProps): ReactNode {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-medium text-[var(--color-foreground)]/80">
+      <label htmlFor={id} className="text-sm font-medium text-foreground/80">
         {label}
-        {required && <span className="mr-1 text-[var(--color-primary)]">*</span>}
+        {required && <span className="mr-1 text-primary">*</span>}
       </label>
       {children}
       <AnimatePresence mode="wait" initial={false}>
@@ -894,7 +894,7 @@ function Field({ id, label, required, error, helper, children }: FieldProps): Re
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-[11px] text-[var(--color-foreground)]/40"
+            className="text-sm text-foreground/40"
           >
             {helper}
           </motion.p>
@@ -912,7 +912,7 @@ function ErrorText({ children }: { children: ReactNode }): ReactNode {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0 }}
       transition={SOFT_SPRING}
-      className="flex items-center gap-1 text-[11px] font-medium text-[var(--color-destructive)]"
+      className="flex items-center gap-1 text-sm font-medium text-destructive"
     >
       <TriangleAlert className="h-3 w-3 shrink-0" aria-hidden />
       {children}

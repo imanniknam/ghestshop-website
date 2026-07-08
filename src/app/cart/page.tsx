@@ -30,7 +30,7 @@ const REGISTRATION_FEE_RATE = 0.005;
 
 export default function CartPage(): ReactNode {
   const activeItem = useCartStore((s) => s.activeItem);
-  const glow = usePointerGlow({ size: 260, color: 'rgba(245,158,11,0.18)' });
+  const glow = usePointerGlow({ size: 260, color: 'rgba(64,125,192,0.18)' });
 
   if (!activeItem) {
     return (
@@ -40,7 +40,7 @@ export default function CartPage(): ReactNode {
         <p className="text-sm text-foreground/55">برای ثبت درخواست اقساطی، ابتدا یک محصول را انتخاب کنید.</p>
         <Link
           href="/"
-          className="mt-2 rounded-xl bg-[#F59E0B] px-6 py-3 text-sm font-bold text-[#1C1917] shadow-lg shadow-[#F59E0B]/25 transition-[filter] hover:brightness-110"
+          className="mt-2 rounded-xl bg-[#407DC0] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#407DC0]/25 transition-[filter] hover:brightness-110"
         >
           مشاهده محصولات
         </Link>
@@ -62,7 +62,7 @@ export default function CartPage(): ReactNode {
   return (
     <main dir="rtl" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <header className="mb-6 flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F59E0B]/15 text-gold">
+        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#407DC0]/15 text-gold">
           <ReceiptText className="h-6 w-6" aria-hidden />
         </span>
         <div>
@@ -84,7 +84,7 @@ export default function CartPage(): ReactNode {
             </div>
             <div className="flex flex-col gap-1.5">
               <h2 className="text-base font-bold text-foreground">{product.title}</h2>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-foreground/55">
+              <div className="flex flex-wrap items-center gap-2 text-sm text-foreground/55">
                 <span className="inline-flex items-center gap-1">
                   <span className="h-3 w-3 rounded-full border border-foreground/20" style={{ backgroundColor: swatchHex(color) }} />
                   {color}
@@ -111,16 +111,16 @@ export default function CartPage(): ReactNode {
               <span className="text-sm text-foreground/70">قسط ماهانه (خالص)</span>
               <span className="text-xl font-black tabular-nums text-gold">
                 {formatToman(quote.monthlyPayment, { withSuffix: false })}
-                <span className="mr-1 text-xs font-normal text-gold/70">تومان</span>
+                <span className="mr-1 text-sm font-normal text-gold/70">تومان</span>
               </span>
             </div>
 
             <BillRow label="مبلغ کل قابل پرداخت" value={formatToman(grandTotal)} strong />
           </dl>
 
-          <p className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-3 py-2 text-[11px] text-emerald-300">
+          <p className="flex items-center gap-2 rounded-xl bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
             <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden />
-            تمامی محاسبات بر اساس موتور مالی رسمی قسط‌شاپ و کاملاً شفاف است.
+            تمامی محاسبات بر اساس موتور مالی رسمی قسط شاپ و کاملاً شفاف است.
           </p>
         </section>
 
@@ -140,7 +140,7 @@ export default function CartPage(): ReactNode {
           </header>
 
           <ol className="relative z-10 flex flex-col gap-3">
-            <span aria-hidden className="absolute bottom-4 right-[1.15rem] top-4 w-px bg-gradient-to-b from-[#F59E0B]/40 via-white/10 to-transparent" />
+            <span aria-hidden className="absolute bottom-4 right-[1.15rem] top-4 w-px bg-gradient-to-b from-[#407DC0]/40 via-white/10 to-transparent" />
             {schedule.map((row, i) => {
               const isActive = i === 0;
               return (
@@ -154,14 +154,14 @@ export default function CartPage(): ReactNode {
                 >
                   <span
                     className={cn(
-                      'relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-black tabular-nums',
-                      isActive ? 'bg-[#F59E0B] text-[#1C1917]' : 'bg-foreground/10 text-foreground/70',
+                      'relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-black tabular-nums',
+                      isActive ? 'bg-[#407DC0] text-white' : 'bg-foreground/10 text-foreground/70',
                     )}
                   >
                     {isActive && (
                       <motion.span
-                        className="absolute inset-0 rounded-full ring-2 ring-[#F59E0B]"
-                        animate={{ boxShadow: ['0 0 0 0 rgba(245,158,11,0.0)', '0 0 0 6px rgba(245,158,11,0.18)', '0 0 0 0 rgba(245,158,11,0.0)'] }}
+                        className="absolute inset-0 rounded-full ring-2 ring-[#407DC0]"
+                        animate={{ boxShadow: ['0 0 0 0 rgba(64,125,192,0.0)', '0 0 0 6px rgba(64,125,192,0.18)', '0 0 0 0 rgba(64,125,192,0.0)'] }}
                         transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
                         aria-hidden
                       />
@@ -170,7 +170,7 @@ export default function CartPage(): ReactNode {
                   </span>
                   <div className={cn('flex flex-1 items-center justify-between rounded-2xl px-4 py-3', glassInset)}>
                     <div className="flex flex-col">
-                      <span className="text-xs text-foreground/55">قسط {toPersianDigits(row.index)}</span>
+                      <span className="text-sm text-foreground/55">قسط {toPersianDigits(row.index)}</span>
                       <span className="text-sm font-bold text-foreground">{row.jalali}</span>
                     </div>
                     <span className="text-sm font-black tabular-nums text-foreground">
@@ -182,7 +182,7 @@ export default function CartPage(): ReactNode {
             })}
           </ol>
 
-          <p className="relative z-10 text-[11px] text-foreground/40">
+          <p className="relative z-10 text-sm text-foreground/40">
             مابقی اقساط پس از تأیید اعتبارسنجی در دفتر اقساط شما ثبت می‌شود.
           </p>
         </section>
@@ -193,9 +193,9 @@ export default function CartPage(): ReactNode {
         <Link
           href="/apply"
           className={cn(
-            'inline-flex items-center justify-center gap-2 rounded-2xl bg-[#F59E0B] px-10 py-4 text-base font-black text-[#1C1917]',
-            'shadow-[0_0_40px_-6px_rgba(245,158,11,0.6)] transition-[filter,box-shadow] hover:brightness-110 hover:shadow-[0_0_56px_-4px_rgba(245,158,11,0.75)]',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+            'inline-flex items-center justify-center gap-2 rounded-2xl bg-[#407DC0] px-10 py-4 text-base font-black text-white',
+            'shadow-[0_0_40px_-6px_rgba(64,125,192,0.6)] transition-[filter,box-shadow] hover:brightness-110 hover:shadow-[0_0_56px_-4px_rgba(64,125,192,0.75)]',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
           )}
         >
           <ShieldCheck className="h-5 w-5" aria-hidden />

@@ -128,25 +128,25 @@ export function InstallmentCalculator({
       {/* Decorative radial gradient glow (purposeful background, pointer-safe). */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 -top-24 h-56 w-56 rounded-full bg-[var(--color-primary)]/30 blur-3xl"
+        className="pointer-events-none absolute -left-24 -top-24 h-56 w-56 rounded-full bg-primary/30 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 -right-16 h-56 w-56 rounded-full bg-[var(--color-accent)]/25 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 -right-16 h-56 w-56 rounded-full bg-accent/25 blur-3xl"
       />
 
       <div className="relative z-10 flex flex-col gap-6">
         {/* ---- Header --------------------------------------------------- */}
         <header className="flex flex-col gap-1">
-          <span className="text-xs font-medium text-[var(--color-foreground)]/60">
+          <span className="text-sm font-medium text-foreground/60">
             خرید اقساطی
           </span>
-          <h2 className="text-lg font-bold text-[var(--color-foreground)]">
+          <h2 className="text-lg font-bold text-foreground">
             {productTitle ?? 'محاسبه‌گر اقساط'}
           </h2>
-          <p className="text-sm text-[var(--color-foreground)]/60">
+          <p className="text-sm text-foreground/60">
             قیمت نقدی:{' '}
-            <span className="font-semibold text-[var(--color-secondary)]">
+            <span className="font-semibold text-secondary">
               {formatToman(cashPrice)}
             </span>
           </p>
@@ -157,15 +157,15 @@ export function InstallmentCalculator({
           <div className="flex items-baseline justify-between">
             <label
               htmlFor={downSliderId}
-              className="text-sm font-medium text-[var(--color-foreground)]/80"
+              className="text-sm font-medium text-foreground/80"
             >
               پیش‌پرداخت
             </label>
             <div className="flex items-center gap-2 tabular-nums">
-              <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs text-[var(--color-foreground)]/70">
+              <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-sm text-foreground/70">
                 ٪{toPersianDigits(downRatioPct)}
               </span>
-              <span className="text-sm font-bold text-[var(--color-foreground)]">
+              <span className="text-sm font-bold text-foreground">
                 {formatToman(downPayment, { withSuffix: false })}
               </span>
             </div>
@@ -183,12 +183,12 @@ export function InstallmentCalculator({
             aria-valuetext={formatToman(downPayment)}
             className={cn(
               'h-2 w-full cursor-pointer appearance-none rounded-full',
-              'bg-foreground/15 accent-[var(--color-primary)]',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+              'bg-foreground/15 accent-primary',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
             )}
           />
 
-          <div className="flex justify-between text-[11px] text-[var(--color-foreground)]/40 tabular-nums">
+          <div className="flex justify-between text-sm text-foreground/40 tabular-nums">
             <span>حداقل {formatToman(minDown, { withSuffix: false })}</span>
             <span>حداکثر {formatToman(maxDown, { withSuffix: false })}</span>
           </div>
@@ -196,7 +196,7 @@ export function InstallmentCalculator({
 
         {/* ---- Duration segmented control ------------------------------ */}
         <fieldset className="flex flex-col gap-3">
-          <legend className="text-sm font-medium text-[var(--color-foreground)]/80">
+          <legend className="text-sm font-medium text-foreground/80">
             تعداد ماه
           </legend>
           <div
@@ -215,17 +215,17 @@ export function InstallmentCalculator({
                   onClick={() => setMonths(m)}
                   className={cn(
                     'relative z-10 rounded-xl py-2.5 text-sm font-bold transition-colors',
-                    'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
+                    'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                     active
-                      ? 'text-[var(--color-on-primary)]'
-                      : 'text-[var(--color-foreground)]/60 hover:text-[var(--color-foreground)]',
+                      ? 'text-primary-foreground'
+                      : 'text-foreground/60 hover:text-foreground',
                   )}
                 >
                   {active && (
                     <motion.span
                       layoutId="month-pill"
                       transition={transition}
-                      className="absolute inset-0 -z-10 rounded-xl bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/30"
+                      className="absolute inset-0 -z-10 rounded-xl bg-primary shadow-lg shadow-primary/30"
                     />
                   )}
                   {toPersianDigits(m)}
@@ -237,7 +237,7 @@ export function InstallmentCalculator({
 
         {/* ---- Hero figure: monthly payment ---------------------------- */}
         <div className="flex flex-col items-center gap-1 rounded-2xl border border-foreground/10 bg-gradient-to-b from-white/10 to-transparent p-5 text-center">
-          <span className="text-xs text-[var(--color-foreground)]/60">
+          <span className="text-sm text-foreground/60">
             مبلغ هر قسط
           </span>
           <AnimatePresence mode="popLayout" initial={false}>
@@ -247,12 +247,12 @@ export function InstallmentCalculator({
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={reduceMotion ? undefined : { opacity: 0, y: -8, filter: 'blur(4px)' }}
               transition={transition}
-              className="text-3xl font-black tabular-nums text-[var(--color-foreground)] sm:text-4xl"
+              className="text-3xl font-black tabular-nums text-foreground sm:text-4xl"
             >
               {formatToman(result.monthlyPayment, { withSuffix: false })}
             </motion.div>
           </AnimatePresence>
-          <span className="text-xs text-[var(--color-foreground)]/50">
+          <span className="text-sm text-foreground/50">
             تومان در ماه ({toPersianDigits(months)} قسط)
           </span>
         </div>
@@ -286,7 +286,7 @@ export function InstallmentCalculator({
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={SOFT_SPRING}
-              className="rounded-xl border border-[var(--color-destructive)]/40 bg-[var(--color-destructive)]/10 px-3 py-2 text-xs font-medium text-[var(--color-destructive)]"
+              className="rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive"
             >
               مبلغ پیش‌پرداخت خارج از محدوده مجاز است.
             </motion.p>
@@ -311,9 +311,9 @@ export function InstallmentCalculator({
           }
           className={cn(
             'w-full rounded-2xl py-3.5 text-sm font-bold transition-colors',
-            'bg-[var(--color-primary)] text-[var(--color-on-primary)]',
-            'shadow-lg shadow-[var(--color-primary)]/30',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+            'bg-primary text-primary-foreground',
+            'shadow-lg shadow-primary/30',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
             'disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none',
             !isInvalid && 'cursor-pointer hover:brightness-110',
           )}
@@ -321,9 +321,9 @@ export function InstallmentCalculator({
           ادامه و ثبت درخواست اقساط
         </motion.button>
 
-        <p className="text-center text-[11px] text-[var(--color-foreground)]/40">
+        <p className="text-center text-sm text-foreground/40">
           مبلغ کل بازپرداخت:{' '}
-          <span className="font-semibold tabular-nums text-[var(--color-foreground)]/70">
+          <span className="font-semibold tabular-nums text-foreground/70">
             {formatToman(result.totalPayable)}
           </span>
         </p>
@@ -346,7 +346,7 @@ interface MetricProps {
 function Metric({ label, value, accent = false, transition }: MetricProps): ReactNode {
   return (
     <div className="flex flex-col gap-1 rounded-xl bg-foreground/5 p-3">
-      <dt className="text-[10px] leading-tight text-[var(--color-foreground)]/50">
+      <dt className="text-sm leading-tight text-foreground/50">
         {label}
       </dt>
       <AnimatePresence mode="popLayout" initial={false}>
@@ -357,8 +357,8 @@ function Metric({ label, value, accent = false, transition }: MetricProps): Reac
           exit={{ opacity: 0, y: -4 }}
           transition={transition}
           className={cn(
-            'text-xs font-bold tabular-nums',
-            accent ? 'text-[var(--color-secondary)]' : 'text-[var(--color-foreground)]',
+            'text-sm font-bold tabular-nums',
+            accent ? 'text-secondary' : 'text-foreground',
           )}
         >
           {value}

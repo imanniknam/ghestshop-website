@@ -18,9 +18,9 @@ interface TrustItem {
 }
 
 const ITEMS: readonly TrustItem[] = [
-  { icon: BadgeCheck, text: '۱۲٬۴۰۰+ خرید موفق' },
+  { icon: BadgeCheck, text: '۱۷٬۰۰۰+ مشتری راضی' },
   { icon: ShieldCheck, text: 'نماد اعتماد الکترونیکی (اینماد)' },
-  { icon: Percent, text: '۰٪ کارمزد ۳ ماه اول' },
+  { icon: Percent, text: 'فروش اقساطی در شیراز و جهرم' },
 ];
 
 export interface TrustStripProps {
@@ -45,10 +45,10 @@ export function TrustStrip({ className }: TrustStripProps): ReactNode {
               glassClass('card', 'flex items-center gap-2 rounded-2xl px-4 py-2.5'),
             )}
           >
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F59E0B]/15 text-gold">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#407DC0]/15 text-gold">
               <Icon className="h-4 w-4" />
             </span>
-            <span className="whitespace-nowrap text-xs font-semibold text-foreground/85 sm:text-sm">
+            <span className="whitespace-nowrap text-body font-medium text-foreground/85">
               {item.text}
             </span>
           </div>

@@ -12,6 +12,9 @@ import { create } from 'zustand';
 
 export type AuthRole = 'buyer' | 'admin';
 
+/** Which view the auth modal should open on. */
+export type AuthView = 'login' | 'register';
+
 export interface AuthUser {
   readonly name: string;
   readonly role: AuthRole;
@@ -22,10 +25,12 @@ interface AuthState {
   user: AuthUser | null;
   hydrated: boolean;
   modalOpen: boolean;
+  authView: AuthView;
   hydrate: () => void;
   login: (user: AuthUser) => void;
   logout: () => void;
-  openModal: () => void;
+  openModal: (view?: AuthView) => void;
+  setAuthView: (view: AuthView) => void;
   closeModal: () => void;
 }
 
@@ -35,6 +40,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   hydrated: false,
   modalOpen: false,
+  authView: 'login',
 
   hydrate: () => {
     try {
@@ -63,7 +69,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ user: null });
   },
 
-  openModal: () => set({ modalOpen: true }),
+  openModal: (view = 'login') => set({ modalOpen: true, authView: view }),
+  setAuthView: (view) => set({ authView: view }),
   closeModal: () => set({ modalOpen: false }),
 }));
 

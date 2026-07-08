@@ -46,8 +46,8 @@ export function AnalyticsSuite({ metrics, monthlyFlow, className }: AnalyticsSui
         label: 'سرمایه تأمین‌شده کل',
         value: formatTomanCompact(metrics.totalFinanced),
         icon: Wallet,
-        accent: 'text-[var(--color-primary)]',
-        glow: 'bg-[var(--color-primary)]/20',
+        accent: 'text-primary',
+        glow: 'bg-primary/20',
       },
       {
         key: 'overdue',
@@ -70,8 +70,8 @@ export function AnalyticsSuite({ metrics, monthlyFlow, className }: AnalyticsSui
         label: 'درخواست‌های بررسی‌نشده',
         value: toPersianDigits(metrics.pendingApplications),
         icon: Banknote,
-        accent: 'text-[var(--color-accent)]',
-        glow: 'bg-[var(--color-accent)]/20',
+        accent: 'text-accent',
+        glow: 'bg-accent/20',
       },
     ],
     [metrics],
@@ -97,8 +97,8 @@ export function AnalyticsSuite({ metrics, monthlyFlow, className }: AnalyticsSui
                   <Icon className="h-5 w-5" aria-hidden />
                 </div>
                 <div>
-                  <p className="text-xs text-[var(--color-foreground)]/55">{c.label}</p>
-                  <p className="mt-1 text-xl font-black tabular-nums text-[var(--color-foreground)]">{c.value}</p>
+                  <p className="text-sm text-foreground/55">{c.label}</p>
+                  <p className="mt-1 text-xl font-black tabular-nums text-foreground">{c.value}</p>
                 </div>
               </div>
             </motion.div>
@@ -110,8 +110,8 @@ export function AnalyticsSuite({ metrics, monthlyFlow, className }: AnalyticsSui
       <div className="rounded-3xl border border-foreground/15 bg-foreground/10 p-5 backdrop-blur-xl ring-1 ring-inset ring-foreground/5">
         <div className="mb-4 flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold text-[var(--color-foreground)]">جریان نقدی ماهانه در برابر معوقات</h3>
-            <p className="text-xs text-[var(--color-foreground)]/50">مقایسه وصولی تأییدشده و اقساط معوق (تومان)</p>
+            <h3 className="text-sm font-bold text-foreground">جریان نقدی ماهانه در برابر معوقات</h3>
+            <p className="text-sm text-foreground/50">مقایسه وصولی تأییدشده و اقساط معوق (تومان)</p>
           </div>
         </div>
 
@@ -120,36 +120,36 @@ export function AnalyticsSuite({ metrics, monthlyFlow, className }: AnalyticsSui
             <ComposedChart data={monthlyFlow} margin={{ top: 8, right: 8, left: 8, bottom: 0 }}>
               <defs>
                 <linearGradient id="inflowFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="var(--color-primary)" stopOpacity={0.45} />
-                  <stop offset="100%" stopColor="var(--color-primary)" stopOpacity={0.02} />
+                  <stop offset="0%" stopColor="rgb(var(--color-primary))" stopOpacity={0.45} />
+                  <stop offset="100%" stopColor="rgb(var(--color-primary))" stopOpacity={0.02} />
                 </linearGradient>
               </defs>
 
-              <CartesianGrid strokeDasharray="4 4" stroke="rgba(255,255,255,0.08)" vertical={false} />
+              <CartesianGrid strokeDasharray="4 4" stroke="rgb(var(--color-foreground) / 0.10)" vertical={false} />
               <XAxis
                 dataKey="month"
                 reversed
-                tick={{ fill: 'rgba(248,250,252,0.55)', fontSize: 12 }}
+                tick={{ fill: 'rgb(var(--color-foreground) / 0.6)', fontSize: 12 }}
                 tickFormatter={(v: string) => v}
-                axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+                axisLine={{ stroke: 'rgb(var(--color-foreground) / 0.15)' }}
                 tickLine={false}
               />
               <YAxis
                 orientation="right"
-                tick={{ fill: 'rgba(248,250,252,0.45)', fontSize: 11 }}
+                tick={{ fill: 'rgb(var(--color-foreground) / 0.5)', fontSize: 11 }}
                 tickFormatter={(v: number) => toPersianDigits((v / 1_000_000).toFixed(0))}
                 axisLine={false}
                 tickLine={false}
                 width={40}
               />
-              <Tooltip content={<PersianTooltip />} cursor={{ fill: 'rgba(255,255,255,0.04)' }} />
+              <Tooltip content={<PersianTooltip />} cursor={{ fill: 'rgb(var(--color-foreground) / 0.06)' }} />
               <Legend content={<PersianLegend />} />
 
               <Area
                 type="monotone"
                 dataKey="inflow"
                 name="وصولی تأییدشده"
-                stroke="var(--color-primary)"
+                stroke="rgb(var(--color-primary))"
                 strokeWidth={2.5}
                 fill="url(#inflowFill)"
                 activeDot={{ r: 5, strokeWidth: 0 }}
@@ -180,15 +180,15 @@ function PersianTooltip({ active, payload, label }: TooltipProps<number, string>
   return (
     <div
       dir="rtl"
-      className="rounded-xl border border-foreground/15 bg-[var(--color-background)]/90 p-3 shadow-xl backdrop-blur-md"
+      className="rounded-xl border border-foreground/15 bg-background/90 p-3 shadow-xl backdrop-blur-md"
     >
-      <p className="mb-2 text-xs font-bold text-[var(--color-foreground)]">{label}</p>
+      <p className="mb-2 text-sm font-bold text-foreground">{label}</p>
       <ul className="flex flex-col gap-1">
         {payload.map((entry) => (
-          <li key={String(entry.dataKey)} className="flex items-center gap-2 text-xs">
+          <li key={String(entry.dataKey)} className="flex items-center gap-2 text-sm">
             <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: entry.color }} aria-hidden />
-            <span className="text-[var(--color-foreground)]/60">{entry.name}:</span>
-            <span className="font-semibold tabular-nums text-[var(--color-foreground)]">
+            <span className="text-foreground/60">{entry.name}:</span>
+            <span className="font-semibold tabular-nums text-foreground">
               {formatToman(Number(entry.value ?? 0))}
             </span>
           </li>
@@ -208,7 +208,7 @@ function PersianLegend({ payload }: { payload?: LegendEntry[] }): ReactNode {
   return (
     <ul dir="rtl" className="mt-2 flex items-center justify-center gap-5">
       {payload.map((entry) => (
-        <li key={entry.value} className="flex items-center gap-1.5 text-xs text-[var(--color-foreground)]/60">
+        <li key={entry.value} className="flex items-center gap-1.5 text-sm text-foreground/60">
           <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: entry.color }} aria-hidden />
           {entry.value}
         </li>

@@ -153,7 +153,7 @@ export function generateMetadata({ params }: BrandPageProps): Metadata {
   const name = brand?.name ?? params.slug;
   return {
     title: `خرید اقساطی محصولات ${name}`,
-    description: brand?.tagline ?? `محصولات ${name} با شرایط اقساطی ویژه در قسط‌شاپ.`,
+    description: brand?.tagline ?? `محصولات ${name} با شرایط اقساطی ویژه در قسط شاپ.`,
   };
 }
 
@@ -165,7 +165,7 @@ export default function BrandPage({ params, searchParams }: BrandPageProps): Rea
     <main dir="rtl" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Brand heading */}
       <header className={cn(glassClass('hero', 'mb-6 flex items-center gap-4 rounded-3xl p-6'))}>
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F59E0B] to-[#7C3AED] text-2xl font-black text-white">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#407DC0] to-[#38BDF8] text-2xl font-black text-white">
           {brandName.charAt(0)}
         </div>
         <div>
@@ -232,7 +232,7 @@ function EmptyState({ title, subtitle }: { title: string; subtitle: string }): R
     <div className={cn(glassClass('card', 'flex flex-col items-center gap-3 rounded-3xl p-12 text-center'))}>
       <PackageSearch className="h-10 w-10 text-foreground/30" aria-hidden />
       <p className="text-sm font-bold text-foreground">{title}</p>
-      <p className="text-xs text-foreground/50">{subtitle}</p>
+      <p className="text-sm text-foreground/50">{subtitle}</p>
     </div>
   );
 }

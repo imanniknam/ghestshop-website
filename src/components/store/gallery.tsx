@@ -86,7 +86,7 @@ export function ProductGallery({ images, title, className }: ProductGalleryProps
           step(-1);
         }
       }}
-      className={cn('flex flex-col gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] rounded-3xl', className)}
+      className={cn('flex flex-col gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] rounded-3xl', className)}
     >
       {/* Active viewport */}
       <div
@@ -114,7 +114,7 @@ export function ProductGallery({ images, title, className }: ProductGalleryProps
                 style={{ transform: 'translateZ(40px)' }}
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-xs text-foreground/30">بدون تصویر</div>
+              <div className="flex h-full w-full items-center justify-center text-sm text-foreground/30">بدون تصویر</div>
             )}
             {!reduceMotion && (
               <motion.span
@@ -126,7 +126,7 @@ export function ProductGallery({ images, title, className }: ProductGalleryProps
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute bottom-3 right-3 rounded-full bg-black/40 px-2.5 py-1 text-[11px] font-bold text-white/80 backdrop-blur-sm tabular-nums">
+        <div className="absolute bottom-3 right-3 rounded-full bg-black/40 px-2.5 py-1 text-sm font-bold text-white/80 backdrop-blur-sm tabular-nums">
           {toFa(index + 1)} / {toFa(list.length)}
         </div>
       </div>
@@ -151,8 +151,8 @@ export function ProductGallery({ images, title, className }: ProductGalleryProps
                 style={{ scrollSnapAlign: 'end' }}
                 className={cn(
                   'relative h-16 w-16 shrink-0 cursor-pointer overflow-hidden rounded-xl border transition-colors',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
-                  isActive ? 'border-[#F59E0B]' : 'border-foreground/10 hover:border-foreground/30',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
+                  isActive ? 'border-[#407DC0]' : 'border-foreground/10 hover:border-foreground/30',
                 )}
               >
                 {src ? (
@@ -163,7 +163,7 @@ export function ProductGallery({ images, title, className }: ProductGalleryProps
                   <motion.span
                     layoutId="product-gallery-active"
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                    className="absolute inset-0 rounded-xl ring-2 ring-inset ring-[#F59E0B]"
+                    className="absolute inset-0 rounded-xl ring-2 ring-inset ring-[#407DC0]"
                   />
                 )}
               </button>

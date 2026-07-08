@@ -25,7 +25,7 @@ export interface ThemeToggleProps {
 
 export function ThemeToggle({ className }: ThemeToggleProps): ReactNode {
   const [mounted, setMounted] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -61,7 +61,7 @@ export function ThemeToggle({ className }: ThemeToggleProps): ReactNode {
       className={cn(
         glassClass('hero', 'relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full'),
         'cursor-pointer text-gold transition-[filter,transform] hover:scale-105 hover:brightness-110',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
         className,
       )}
     >

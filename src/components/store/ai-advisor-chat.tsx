@@ -47,7 +47,7 @@ const QUICK_REPLIES = [
 const INTRO: ChatMessage = {
   id: 0,
   role: 'assistant',
-  text: 'سلام! من مشاور خرید هوشمند قسط‌شاپ هستم. کافی است بودجه و نوع استفاده‌تان را بنویسید — مثلاً «بودجه ۳۵ میلیون برای بازی» — تا بهترین گوشی‌ها را با شرایط اقساطی پیشنهاد بدهم.',
+  text: 'سلام! من مشاور خرید هوشمند قسط شاپ هستم. کافی است بودجه و نوع استفاده‌تان را بنویسید — مثلاً «بودجه ۳۵ میلیون برای بازی» — تا بهترین گوشی‌ها را با شرایط اقساطی پیشنهاد بدهم.',
 };
 
 export interface AiAdvisorChatProps {
@@ -96,7 +96,7 @@ export function AiAdvisorChat({ devices, className }: AiAdvisorChatProps): React
   return (
     <section dir="rtl" className={cn('flex flex-col gap-4', className)}>
       <header className="flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
           <Bot className="h-5 w-5" aria-hidden />
         </span>
         <h2 className="text-lg font-black tracking-tight text-foreground">گفت‌وگوی زنده با مشاور هوشمند</h2>
@@ -119,7 +119,7 @@ export function AiAdvisorChat({ devices, className }: AiAdvisorChatProps): React
               >
                 {msg.role === 'assistant' ? (
                   <div className="flex items-start gap-2.5">
-                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F59E0B] to-[#7C3AED] text-white">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#407DC0] to-[#38BDF8] text-white">
                       <Bot className="h-4 w-4" aria-hidden />
                     </span>
                     <div className="flex max-w-[88%] flex-col gap-3">
@@ -137,7 +137,7 @@ export function AiAdvisorChat({ devices, className }: AiAdvisorChatProps): React
                   </div>
                 ) : (
                   <div className="flex items-start justify-end gap-2.5">
-                    <div className="max-w-[88%] rounded-2xl rounded-tl-sm bg-[#F59E0B] px-4 py-2.5 text-sm font-bold text-[#1C1917]">
+                    <div className="max-w-[88%] rounded-2xl rounded-tl-sm bg-[#407DC0] px-4 py-2.5 text-sm font-bold text-white">
                       {msg.text}
                     </div>
                     <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-foreground/10 text-foreground/70">
@@ -157,7 +157,7 @@ export function AiAdvisorChat({ devices, className }: AiAdvisorChatProps): React
               key={q}
               type="button"
               onClick={() => send(q)}
-              className="cursor-pointer rounded-xl border border-foreground/15 bg-foreground/[0.04] px-3 py-1.5 text-xs font-medium text-foreground/80 transition-colors hover:border-[#F59E0B]/50 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
+              className="cursor-pointer rounded-xl border border-foreground/15 bg-foreground/[0.04] px-3 py-1.5 text-sm font-medium text-foreground/80 transition-colors hover:border-[#407DC0]/50 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]"
             >
               {q}
             </button>
@@ -174,8 +174,8 @@ export function AiAdvisorChat({ devices, className }: AiAdvisorChatProps): React
             aria-label="پیام به مشاور"
             className={cn(
               'h-11 flex-1 rounded-xl border border-foreground/15 bg-foreground/[0.04] px-4 text-sm text-foreground',
-              'placeholder:text-foreground/40 transition-colors focus-within:border-[#F59E0B]/50',
-              'focus-visible:outline-none focus-visible:border-[#F59E0B]/50',
+              'placeholder:text-foreground/40 transition-colors focus-within:border-[#407DC0]/50',
+              'focus-visible:outline-none focus-visible:border-[#407DC0]/50',
             )}
           />
           <button
@@ -183,10 +183,10 @@ export function AiAdvisorChat({ devices, className }: AiAdvisorChatProps): React
             disabled={input.trim().length === 0}
             aria-label="ارسال"
             className={cn(
-              'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F59E0B] text-[#1C1917]',
-              'shadow-lg shadow-[#F59E0B]/25 transition-[filter] hover:brightness-110',
+              'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#407DC0] text-white',
+              'shadow-lg shadow-[#407DC0]/25 transition-[filter] hover:brightness-110',
               'disabled:cursor-not-allowed disabled:opacity-40',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
             )}
           >
             <Send className="h-4 w-4" aria-hidden />
@@ -204,7 +204,7 @@ function RecommendationCard({ rec }: { rec: Recommendation }): ReactNode {
       className={cn(
         'group flex items-center gap-3 rounded-2xl p-3 transition-colors hover:bg-foreground/5',
         glassInset,
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
       )}
     >
       <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-foreground/5">
@@ -216,12 +216,12 @@ function RecommendationCard({ rec }: { rec: Recommendation }): ReactNode {
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-center justify-between gap-2">
           <p className="truncate text-sm font-bold text-foreground">{rec.device.name}</p>
-          <span className="shrink-0 rounded-full bg-[#F59E0B]/15 px-2 py-0.5 text-[10px] font-black text-gold">
+          <span className="shrink-0 rounded-full bg-[#407DC0]/15 px-2 py-0.5 text-sm font-black text-gold">
             ٪{toPersianDigits(rec.matchPercent)} تطابق
           </span>
         </div>
-        <p className="line-clamp-2 text-[11px] leading-relaxed text-foreground/60">{rec.reason}</p>
-        <span className="inline-flex items-center gap-1 text-xs font-black text-gold">
+        <p className="line-clamp-2 text-sm leading-relaxed text-foreground/60">{rec.reason}</p>
+        <span className="inline-flex items-center gap-1 text-sm font-black text-gold">
           اقساط از {formatToman(rec.device.monthlyFrom, { withSuffix: false })} تومان / ماه
           <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" aria-hidden />
         </span>

@@ -88,7 +88,7 @@ export default function DashboardPage(): ReactNode {
   return (
     <main dir="rtl" className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8">
       <header className="flex items-center gap-3">
-        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F59E0B] to-[#7C3AED] text-white">
+        <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#407DC0] to-[#38BDF8] text-white">
           <UserRound className="h-6 w-6" aria-hidden />
         </span>
         <div>
@@ -147,8 +147,8 @@ function ProfileLedger(): ReactNode {
         type="button"
         onClick={() => setSaved(true)}
         className={cn(
-          'mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#F59E0B] py-2.5 text-sm font-bold text-[#1C1917]',
-          'shadow-lg shadow-[#F59E0B]/25 transition-[filter] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
+          'mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-[#407DC0] py-2.5 text-sm font-bold text-white',
+          'shadow-lg shadow-[#407DC0]/25 transition-[filter] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
         )}
       >
         {saved ? <BadgeCheck className="h-4 w-4" aria-hidden /> : <Save className="h-4 w-4" aria-hidden />}
@@ -161,14 +161,14 @@ function ProfileLedger(): ReactNode {
 function ProfileField({ label, value, onChange, ltr = false }: { label: string; value: string; onChange: (v: string) => void; ltr?: boolean }): ReactNode {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="text-xs text-foreground/55">{label}</span>
+      <span className="text-sm text-foreground/55">{label}</span>
       <input
         value={value}
         dir={ltr ? 'ltr' : 'rtl'}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
           'h-11 rounded-xl border border-foreground/15 bg-foreground/[0.04] px-3 text-sm text-foreground transition-colors',
-          'focus-visible:outline-none focus-visible:border-[#F59E0B]/50',
+          'focus-visible:outline-none focus-visible:border-[#407DC0]/50',
           ltr && 'text-left',
         )}
       />
@@ -199,7 +199,7 @@ function OrderTracking(): ReactNode {
               </div>
               <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                 <p className="truncate text-sm font-bold text-foreground">{order.device}</p>
-                <div className="flex flex-wrap items-center gap-2 text-[11px]">
+                <div className="flex flex-wrap items-center gap-2 text-sm">
                   <span className="inline-flex items-center gap-1 text-foreground/60">
                     <DIcon className="h-3.5 w-3.5" aria-hidden />
                     {order.delivery}
@@ -213,7 +213,7 @@ function OrderTracking(): ReactNode {
               </div>
               <Link
                 href={`/product/${order.productId}`}
-                className="shrink-0 rounded-lg p-2 text-foreground/40 transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
+                className="shrink-0 rounded-lg p-2 text-foreground/40 transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]"
                 aria-label="مشاهده محصول"
               >
                 <ArrowLeft className="h-4 w-4" aria-hidden />
@@ -252,7 +252,7 @@ function LoyaltyVault({ locked }: { locked: boolean }): ReactNode {
       className="relative overflow-hidden rounded-3xl p-[2px]"
     >
       {/* Neon glowing border */}
-      <span aria-hidden className="absolute inset-0 rounded-3xl bg-gradient-to-l from-[#22d3ee] via-[#F59E0B] to-[#7C3AED] opacity-80" />
+      <span aria-hidden className="absolute inset-0 rounded-3xl bg-gradient-to-l from-[#22d3ee] via-[#407DC0] to-[#38BDF8] opacity-80" />
       <div className="relative z-10 flex flex-col gap-5 rounded-[1.4rem] bg-background/90 p-6 backdrop-blur-xl">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
@@ -261,7 +261,7 @@ function LoyaltyVault({ locked }: { locked: boolean }): ReactNode {
             </span>
             <div>
               <h2 className="text-lg font-black text-foreground">تخفیف‌های انحصاری خوش‌حسابی</h2>
-              <p className="text-xs text-foreground/55">به‌خاطر پرداخت‌های به‌موقع، این پیشنهادها فقط برای شماست</p>
+              <p className="text-sm text-foreground/55">به‌خاطر پرداخت‌های به‌موقع، این پیشنهادها فقط برای شماست</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -282,17 +282,17 @@ function LoyaltyVault({ locked }: { locked: boolean }): ReactNode {
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-foreground/5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={productImage(deal.id)} alt={deal.name} className="h-full w-full object-cover" />
-                  <span className="absolute right-1 top-1 rounded-full bg-[#22d3ee] px-1.5 py-0.5 text-[9px] font-black text-[#0F172A]">
+                  <span className="absolute right-1 top-1 rounded-full bg-[#22d3ee] px-1.5 py-0.5 text-sm font-black text-[#0F172A]">
                     ٪{toPersianDigits(off)}−
                   </span>
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <p className="truncate text-sm font-bold text-foreground">{deal.name}</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-xs text-foreground/40 line-through tabular-nums">{formatToman(deal.original, { withSuffix: false })}</span>
+                    <span className="text-sm text-foreground/40 line-through tabular-nums">{formatToman(deal.original, { withSuffix: false })}</span>
                     <span className="text-sm font-black tabular-nums text-foreground">{formatToman(deal.exclusive)}</span>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-xs font-black text-gold">
+                  <span className="inline-flex items-center gap-1 text-sm font-black text-gold">
                     اقساط از {formatToman(deal.monthly, { withSuffix: false })} تومان / ماه
                     <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" aria-hidden />
                   </span>
@@ -313,7 +313,7 @@ function LoyaltyVault({ locked }: { locked: boolean }): ReactNode {
 function SectionTitle({ icon: Icon, title }: { icon: typeof Clock; title: string }): ReactNode {
   return (
     <div className="flex items-center gap-2">
-      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#F59E0B]/15 text-gold">
+      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#407DC0]/15 text-gold">
         <Icon className="h-5 w-5" aria-hidden />
       </span>
       <h2 className="text-lg font-black tracking-tight text-foreground">{title}</h2>

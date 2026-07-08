@@ -63,15 +63,15 @@ export function ProductTabs({ specs, reviewsSummary, reviews, className }: Produ
               onClick={() => setTab(t.key)}
               className={cn(
                 'relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]',
-                active ? 'text-[#1C1917]' : 'text-foreground/60 hover:text-foreground',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]',
+                active ? 'text-white' : 'text-foreground/60 hover:text-foreground',
               )}
             >
               {active && (
                 <motion.span
                   layoutId="product-tab-pill"
                   transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-                  className="absolute inset-0 -z-10 rounded-xl bg-[#F59E0B] shadow-lg shadow-[#F59E0B]/25"
+                  className="absolute inset-0 -z-10 rounded-xl bg-[#407DC0] shadow-lg shadow-[#407DC0]/25"
                 />
               )}
               <Icon className="h-4 w-4" aria-hidden />

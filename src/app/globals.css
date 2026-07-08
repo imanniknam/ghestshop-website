@@ -3,46 +3,56 @@
 @tailwind utilities;
 
 /* ==========================================================================
-   GhestShop — Design Tokens ("Liquid Glass" Premium Financial Tech)
-   Class-based theming: :root = LIGHT (default), .dark = DARK override.
-   Components consume var(--color-*) and the semantic Tailwind colours mapped
-   to them, so the entire UI flips by toggling the `.dark` class on <html>.
+   GhestShop — Design Tokens  ("Clarity" — clean, trustworthy blue fintech)
+   Typography aligned with live ghestshop.com: Vazir/Vazirmatn, ~15px body,
+   clear hierarchy, comfortable but not oversized line-heights.
    ========================================================================== */
 
 :root {
-  /* Brand */
-  --color-primary: #f59e0b;       /* gold fill (same vivid gold in both themes) */
-  --color-on-primary: #1c1917;    /* dark text that sits on the gold fill */
-  --color-secondary: #b45309;     /* amber-700 — legible accent text on light */
-  --color-accent: #7c3aed;        /* purple-tech */
-  --color-destructive: #dc2626;
-  --color-ring: #f59e0b;
-
-  /* Contrast-safe gold TEXT (vivid gold fails 4.5:1 on light surfaces) */
-  --color-gold: #b45309;          /* amber-700 */
+  /* Brand — GhestShop blue (sampled from the production logo) */
+  --color-primary: 64 125 192;
+  --color-primary-strong: 51 105 159;
+  --color-on-primary: 255 255 255;
+  --color-secondary: 14 116 144;
+  --color-accent: 56 189 248;
+  --color-success: 22 163 74;
+  --color-destructive: 220 38 38;
+  --color-ring: 64 125 192;
+  --color-gold: 44 97 153;
 
   /* Surfaces (LIGHT) */
-  --color-background: #f8fafc;     /* slate-50 */
-  --color-foreground: #0f172a;     /* slate-900 */
-  --color-muted: #e2e8f0;          /* slate-200 */
-  --color-border: #cbd5e1;         /* slate-300 */
+  --color-background: 238 243 249;
+  --color-surface: 255 255 255;
+  --color-foreground: 15 29 48;
+  --color-muted: 227 235 245;
+  --color-border: 213 224 238;
+
+  /* Typography — mirrors live ghestshop.com proportions (16px root, 15px body) */
+  --text-body: 0.9375rem;   /* 15px */
+  --text-caption: 0.8125rem; /* 13px */
+  --text-nav: 0.9375rem;    /* 15px */
+  --leading-body: 1.75;
+  --leading-tight: 1.5;
 
   --radius: 1rem;
   color-scheme: light;
 }
 
 .dark {
-  --color-on-primary: #0f172a;
-  --color-secondary: #fbbf24;     /* amber-400 */
-  --color-accent: #8b5cf6;
+  --color-primary: 77 143 214;
+  --color-primary-strong: 106 166 228;
+  --color-on-primary: 6 17 31;
+  --color-secondary: 34 211 238;
+  --color-accent: 56 189 248;
+  --color-success: 52 211 153;
+  --color-ring: 77 143 214;
+  --color-gold: 122 182 236;
 
-  --color-gold: #f59e0b;          /* vivid gold text reads fine on dark */
-
-  /* Surfaces (DARK) */
-  --color-background: #0f172a;     /* deep slate */
-  --color-foreground: #f8fafc;
-  --color-muted: #272f42;
-  --color-border: #334155;
+  --color-background: 10 18 32;
+  --color-surface: 17 29 49;
+  --color-foreground: 233 240 249;
+  --color-muted: 26 39 64;
+  --color-border: 38 52 78;
 
   color-scheme: dark;
 }
@@ -50,24 +60,63 @@
 @layer base {
   html {
     direction: rtl;
+    scroll-behavior: smooth;
+    /* Standard 16px root — matches live site / Bootstrap baseline */
+    font-size: 100%;
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-vazir), var(--font-plex), system-ui, sans-serif;
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+    font-family: var(--font-vazir), Tahoma, Arial, sans-serif;
+    font-size: var(--text-body);
+    font-weight: 400;
+    line-height: var(--leading-body);
     -webkit-font-smoothing: antialiased;
-    /* Seamless cross-fade when the theme flips. */
+    text-rendering: optimizeLegibility;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Persian numerals render with tabular figures for stable financial layout. */
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: var(--leading-tight);
+  }
+
   .tabular-nums {
     font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: rgb(var(--color-primary) / 0.28);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
