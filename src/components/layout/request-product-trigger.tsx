@@ -14,7 +14,7 @@ export function RequestProductTrigger({ className }: { className?: string }): Re
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          'inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-primary/35 bg-primary/8 px-3 text-nav font-bold text-primary sm:px-4',
+          'inline-flex h-9 shrink-0 items-center gap-1.5 rounded-xl border border-primary/35 bg-primary/8 px-3 text-sm font-bold text-primary md:h-10 md:text-nav lg:px-4',
           'transition-colors hover:bg-primary/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
           className,
         )}

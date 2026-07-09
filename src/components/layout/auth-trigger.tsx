@@ -32,37 +32,37 @@ export function AuthTrigger(): ReactNode {
 
   // Reserve footprint until hydrated to avoid a flash of the wrong state.
   if (!hydrated) {
-    return <div aria-hidden className="h-10 w-[11rem] rounded-xl bg-foreground/5" />;
+    return <div aria-hidden className="h-9 w-[4.75rem] rounded-xl bg-foreground/5 md:h-10 md:w-[11rem]" />;
   }
 
   if (!user) {
     return (
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 items-center gap-1 md:gap-2">
         <button
           type="button"
           onClick={() => openModal('login')}
           aria-label="ورود به حساب"
           className={cn(
-            'inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl bg-[#407DC0] px-3 text-nav font-bold text-white sm:px-4',
+            'inline-flex h-9 shrink-0 items-center gap-1 rounded-xl bg-[#407DC0] px-2 text-sm font-bold text-white md:h-10 md:gap-1.5 md:px-3 md:text-nav lg:px-4',
             'shadow-[0_0_24px_-4px_rgba(64,125,192,0.6)] transition-[filter,box-shadow] hover:brightness-110 hover:shadow-[0_0_32px_-2px_rgba(64,125,192,0.75)]',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
           )}
         >
-          <LogIn className="h-4 w-4" aria-hidden />
-          <span>ورود</span>
+          <LogIn className="h-4 w-4 shrink-0" aria-hidden />
+          <span className="hidden min-[380px]:inline">ورود</span>
         </button>
         <button
           type="button"
           onClick={() => openModal('register')}
           aria-label="ثبت نام حساب جدید"
           className={cn(
-            'inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-[#407DC0]/45 bg-[#407DC0]/[0.06] px-3 text-nav font-bold text-[#407DC0] sm:px-4',
+            'inline-flex h-9 shrink-0 items-center gap-1 rounded-xl border border-[#407DC0]/45 bg-[#407DC0]/[0.06] px-2 text-sm font-bold text-[#407DC0] md:h-10 md:gap-1.5 md:px-3 md:text-nav lg:px-4',
             'transition-colors hover:bg-[#407DC0]/[0.12] hover:border-[#407DC0]/70',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent',
           )}
         >
-          <UserPlus className="h-4 w-4" aria-hidden />
-          <span>ثبت نام</span>
+          <UserPlus className="h-4 w-4 shrink-0" aria-hidden />
+          <span className="hidden min-[380px]:inline">ثبت نام</span>
         </button>
       </div>
     );
@@ -77,9 +77,9 @@ export function AuthTrigger(): ReactNode {
         onClick={() => setMenuOpen((v) => !v)}
         onMouseEnter={() => setMenuOpen(true)}
         aria-expanded={menuOpen}
-        className="flex h-10 cursor-pointer items-center gap-2.5 rounded-xl border border-foreground/10 bg-foreground/[0.04] px-2.5 pr-1.5 text-nav transition-colors hover:bg-foreground/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#407DC0]"
+        className="flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-foreground/10 bg-foreground/[0.04] px-1.5 pr-1 md:h-10 md:gap-2.5 md:px-2.5 md:pr-1.5"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#407DC0] to-[#38BDF8] text-caption font-bold text-white">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-[#407DC0] to-[#38BDF8] text-caption font-bold text-white md:h-8 md:w-8">
           {initial}
         </span>
         <span className="hidden max-w-[7rem] truncate text-nav font-bold text-foreground sm:inline">

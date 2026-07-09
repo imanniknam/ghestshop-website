@@ -62,16 +62,17 @@ export function Header({ className }: HeaderProps): ReactNode {
         className,
       )}
     >
-      <div className="relative mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex h-14 min-w-0 max-w-7xl items-center justify-between gap-1.5 px-3 md:h-[4.25rem] md:gap-3 md:px-6 lg:px-8">
         <Link
           href="/"
           aria-label="قسط شاپ — صفحه اصلی"
-          className="flex shrink-0 items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="flex min-w-0 shrink items-center gap-2 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 md:gap-3"
         >
-          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
-            <BrandMark size={28} />
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20 md:h-11 md:w-11 md:rounded-2xl">
+            <BrandMark size={22} className="md:hidden" />
+            <BrandMark size={28} className="hidden md:block" />
           </span>
-          <span className="text-lg font-bold tracking-tight text-foreground">قسط شاپ</span>
+          <span className="truncate text-base font-bold tracking-tight text-foreground md:text-lg">قسط شاپ</span>
         </Link>
 
         <nav className="hidden items-center gap-2 md:flex" aria-label="ناوبری اصلی">
@@ -98,9 +99,9 @@ export function Header({ className }: HeaderProps): ReactNode {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex min-w-0 shrink-0 items-center gap-1 md:gap-2 lg:gap-3">
           <GlobalSearch />
-          <RequestProductTrigger className="hidden sm:inline-flex" />
+          <RequestProductTrigger className="hidden lg:inline-flex" />
           <AuthTrigger />
         </div>
       </div>
@@ -195,7 +196,8 @@ function GlobalSearch(): ReactNode {
       onSubmit={onSubmit}
       role="search"
       className={cn(
-        'flex h-10 w-40 items-center gap-2 rounded-xl border border-border bg-muted/60 px-3 transition-colors sm:w-56 lg:w-64',
+        'hidden h-9 min-w-0 items-center gap-1.5 rounded-xl border border-border bg-muted/60 px-2.5 transition-colors md:flex md:h-10 md:gap-2 md:px-3 lg:w-64',
+        'w-36 sm:w-44',
         'focus-within:border-primary/60 focus-within:bg-surface focus-within:ring-2 focus-within:ring-primary/15',
       )}
     >
@@ -211,7 +213,7 @@ function GlobalSearch(): ReactNode {
           onBlur={() => setFocused(false)}
           aria-label="جستجوی محصولات"
           enterKeyHint="search"
-          className="w-full bg-transparent text-nav text-foreground outline-none placeholder:text-transparent"
+          className="w-full min-w-0 bg-transparent text-caption text-foreground outline-none placeholder:text-transparent md:text-nav"
         />
         <AnimatePresence mode="wait">
           {showFauxPlaceholder && (
@@ -221,7 +223,7 @@ function GlobalSearch(): ReactNode {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.25, ease: EASE_EXPO }}
-              className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-nav text-foreground/40"
+              className="pointer-events-none absolute inset-y-0 right-0 flex items-center truncate text-caption text-foreground/40 md:text-nav"
               aria-hidden
             >
               {SEARCH_PLACEHOLDERS[placeholderIndex]}
