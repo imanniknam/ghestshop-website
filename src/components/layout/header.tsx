@@ -5,8 +5,9 @@
  * Phone-brand dropdown, global search, auth, and «درخواست کالای جدید».
  */
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Search } from 'lucide-react';
 import { AuthTrigger } from '@/components/layout/auth-trigger';
@@ -139,10 +140,33 @@ export function Header({ className }: HeaderProps): ReactNode {
 }
 
 function GlobalSearch(): ReactNode {
+  const router = useRouter();
+  const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
   const [focused, setFocused] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+  useEffect(() => {
+    if (pathname !== '/search') {
+      setValue('');
+      return;
+    }
+    const params = new URLSearchParams(window.location.search);
+    setValue(params.get('q') ?? '');
+  }, [pathname]);
+
+  const submitSearch = (raw: string): void => {
+    const query = raw.trim();
+    if (query.length < 2) return;
+    router.push(`/search?q=${encodeURIComponent(query)}`);
+    inputRef.current?.blur();
+  };
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    submitSearch(value);
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent): void => {
@@ -167,7 +191,9 @@ function GlobalSearch(): ReactNode {
   const showFauxPlaceholder = !focused && value.length === 0;
 
   return (
-    <div
+    <form
+      onSubmit={onSubmit}
+      role="search"
       className={cn(
         'flex h-10 w-40 items-center gap-2 rounded-xl border border-border bg-muted/60 px-3 transition-colors sm:w-56 lg:w-64',
         'focus-within:border-primary/60 focus-within:bg-surface focus-within:ring-2 focus-within:ring-primary/15',
@@ -178,11 +204,13 @@ function GlobalSearch(): ReactNode {
         <input
           ref={inputRef}
           type="search"
+          name="q"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           aria-label="جستجوی محصولات"
+          enterKeyHint="search"
           className="w-full bg-transparent text-nav text-foreground outline-none placeholder:text-transparent"
         />
         <AnimatePresence mode="wait">
@@ -201,7 +229,7 @@ function GlobalSearch(): ReactNode {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </form>
   );
 }
 

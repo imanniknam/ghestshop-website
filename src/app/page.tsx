@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { AboutInstallment } from '@/components/store/about-installment';
 import { BrandShowcase } from '@/components/store/brand-showcase';
+import { FeaturesStrip } from '@/components/store/features-strip';
 import { HomeHero } from '@/components/store/home-hero';
 import { InstallmentNotice } from '@/components/store/installment-notice';
 import { TrustStrip } from '@/components/store/trust-strip';
@@ -22,6 +23,8 @@ export default function HomePage(): ReactNode {
       <InstallmentNotice />
 
       <HomeHero />
+
+      <FeaturesStrip />
 
       <TrustStrip />
 
